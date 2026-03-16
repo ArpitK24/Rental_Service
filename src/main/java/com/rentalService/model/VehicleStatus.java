@@ -10,25 +10,10 @@ import java.util.Set;
  * whether a status is terminal.</p>
  */
 public enum VehicleStatus {
-    /**
-     * Newly submitted vehicle awaiting admin review.
-     */
-    PENDING,
-
-    /**
-     * Vehicle approved by admin and visible/available for booking (subject to other business rules).
-     */
-    APPROVED,
-
-    /**
-     * Vehicle rejected by admin. May contain a rejection reason in the entity.
-     */
-    REJECTED,
-
-    /**
-     * Vehicle temporarily disabled after being approved or for policy violations.
-     */
-    SUSPENDED;
+    UNDER_REVIEW,
+    ACTIVE,
+    INACTIVE,
+    REJECTED;
 
     /**
      * Returns whether this status is considered a terminal state in the current business rules.
@@ -55,12 +40,12 @@ public enum VehicleStatus {
      */
     public Set<VehicleStatus> allowedTransitions() {
         switch (this) {
-            case PENDING:
-                return EnumSet.of(APPROVED, REJECTED);
-            case APPROVED:
-                return EnumSet.of(SUSPENDED);
-            case SUSPENDED:
-                return EnumSet.of(APPROVED, REJECTED);
+            case UNDER_REVIEW:
+                return EnumSet.of(ACTIVE, INACTIVE, REJECTED);
+            case ACTIVE:
+                return EnumSet.of(INACTIVE, REJECTED);
+            case INACTIVE:
+                return EnumSet.of(ACTIVE, REJECTED);
             case REJECTED:
             default:
                 return EnumSet.noneOf(VehicleStatus.class);

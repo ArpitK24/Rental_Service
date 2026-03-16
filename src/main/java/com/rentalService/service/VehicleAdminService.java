@@ -30,32 +30,9 @@ public interface VehicleAdminService {
                                              Optional<VehicleStatus> statusFilter,
                                              Optional<String> q);
 
-    /**
-     * Update a vehicle's status (approve / reject / suspend).
-     *
-     * Implementations should:
-     *  - validate the vehicle exists
-     *  - verify the requested transition is allowed (use VehicleStatus.canTransitionTo(...) or custom rules)
-     *  - persist audit information (approvedByAdminId, approvedAt, rejectionReason, etc.)
-     *  - optionally trigger notifications
-     *
-     * @param vehicleId the target vehicle id
-     * @param request contains the new status and optional reason
-     * @param adminId id of the admin performing the action (for audit)
-     * @return the updated VehicleListItemDto
-     * @throws javax.persistence.EntityNotFoundException if vehicle not found
-     * @throws IllegalStateException if transition is not allowed
-     * @throws IllegalArgumentException for invalid input
-     */
-    VehicleListItemDto updateVehicleStatus(Long vehicleId,
+    VehicleListItemDto updateVehicleStatus(UUID vehicleId,
                                            UpdateVehicleStatusRequest request,
-                                           Long adminId);
+                                           UUID adminId);
 
-	/**
-	 * Update vehicle status. Uses UUID ids for vehicle and admin.
-	 *
-	 * Important: make sure VehicleAdminService interface signature uses:
-	 *   VehicleListItemDto updateVehicleStatus(UUID vehicleId, UpdateVehicleStatusRequest request, UUID adminId);
-	 */
-	VehicleListItemDto updateVehicleStatus(UUID vehicleId, UpdateVehicleStatusRequest request, UUID adminId);
+    VehicleListItemDto toggleVehicleActive(UUID vehicleId, UUID adminId);
 }

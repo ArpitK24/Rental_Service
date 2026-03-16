@@ -4,11 +4,11 @@ import com.rentalService.model.VehicleStatus;
 import javax.validation.constraints.*;
 
 /**
- * Request body for admin vehicle status updates (approve / reject / suspend).
+ * Request body for admin vehicle status updates.
  *
  * Example JSON:
  * {
- *   "status": "APPROVED",
+ *   "status": "ACTIVE",
  *   "reason": "All documents verified"
  * }
  */
@@ -16,7 +16,7 @@ public class UpdateVehicleStatusRequest {
 
     /**
      * New status to set for the vehicle. Required.
-     * Expected values: PENDING, APPROVED, REJECTED, SUSPENDED
+     * Expected values: UNDER_REVIEW, ACTIVE, INACTIVE, REJECTED
      */
     @NotNull(message = "status is required")
     private VehicleStatus status;

@@ -70,6 +70,23 @@ public class AdminVehicleController {
     }
 
     /**
+     * PATCH /api/admin/vehicles/{id}/toggle-active
+     * UNDER_REVIEW -> ACTIVE
+     * ACTIVE -> INACTIVE
+     * INACTIVE -> ACTIVE
+     */
+    @PatchMapping("/{id}/toggle-active")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<VehicleListItemDto> toggleActive(
+            @PathVariable("id") UUID id,
+            Authentication authentication
+    ) {
+        UUID adminId = extractAdminIdFromPrincipal(authentication);
+        VehicleListItemDto dto = vehicleAdminService.toggleVehicleActive(id, adminId);
+        return ResponseEntity.ok(dto);
+    }
+
+    /**
      * Best-effort extraction of admin id from authentication principal.
      * If your principal class exposes a getId() method returning UUID (or String), this will return it.
      * Otherwise returns null.

@@ -152,7 +152,7 @@ public  class VehicleAdminServiceImpl implements VehicleAdminService {
         if (v.getOwner() != null) {
             User owner = v.getOwner();
             dto.setOwnerId(owner.getId());
-            dto.setOwnerName(owner.getUsername()); // use username; adapt if you have getFullName()
+            dto.setOwnerName(owner.getName() != null ? owner.getName() : owner.getUsername());
         } else {
             dto.setOwnerId(v.getOwnerId());
             // try to resolve ownerName by repository lookup (best-effort)
@@ -160,7 +160,8 @@ public  class VehicleAdminServiceImpl implements VehicleAdminService {
                 UUID ownerId = v.getOwnerId();
                 if (ownerId != null) {
                     Optional<User> maybeUser = userRepository.findById(ownerId);
-                    maybeUser.ifPresent(user -> dto.setOwnerName(user.getUsername()));
+                    maybeUser.ifPresent(user ->
+                            dto.setOwnerName(user.getName() != null ? user.getName() : user.getUsername()));
                 }
             } catch (Exception ignored) { }
         }
@@ -172,9 +173,31 @@ public  class VehicleAdminServiceImpl implements VehicleAdminService {
         return dto;
     }
 
-	@Override
-	public VehicleListItemDto updateVehicleStatus(Long vehicleId, UpdateVehicleStatusRequest request, Long adminId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    @Transactional
+    public VehicleListItemDto toggleVehicleActive(UUID vehicleId, UUID adminId) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleId)
+                .orElseThrow(() -> new EntityNotFoundException("Vehicle not found with id: " + vehicleId));
+
+        VehicleStatus current = safeParseStatus(vehicle.getStatus());
+        if (current == null) {
+            throw new IllegalStateException("Vehicle has unknown status: " + vehicle.getStatus());
+        }
+
+        VehicleStatus next;
+        if (current == VehicleStatus.UNDER_REVIEW || current == VehicleStatus.INACTIVE) {
+            next = VehicleStatus.ACTIVE;
+        } else if (current == VehicleStatus.ACTIVE) {
+            next = VehicleStatus.INACTIVE;
+        } else {
+            throw new IllegalStateException("Cannot toggle vehicle from status: " + current);
+        }
+
+        vehicle.setStatus(next.name());
+        vehicle.setUpdatedAt(OffsetDateTime.now());
+        vehicle.setApprovedByAdminId(adminId);
+        vehicle.setApprovedAt(OffsetDateTime.now());
+        vehicle.setRejectionReason(null);
+        return toListItemDto(vehicleRepository.save(vehicle));
+    }
 }

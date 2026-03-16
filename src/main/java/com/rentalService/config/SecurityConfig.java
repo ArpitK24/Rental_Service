@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+                .antMatchers("/admin/auth/**").permitAll()
                 .antMatchers("/auth/**").permitAll()          // no /api prefix if your context path already handles it
                 .antMatchers("/bookings/**").authenticated()
                 .anyRequest().permitAll()

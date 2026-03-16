@@ -11,7 +11,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.rentalService.model.AdminUser;
 import com.rentalService.model.User;
+import com.rentalService.repository.AdminUserRepository;
 import com.rentalService.repository.UserRepository;
 
 import java.io.IOException;
@@ -23,10 +25,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final AdminUserRepository adminUserRepository;
 
-    public JwtAuthFilter(JwtService jwtService, UserRepository userRepository) {
+    public JwtAuthFilter(JwtService jwtService,
+                         UserRepository userRepository,
+                         AdminUserRepository adminUserRepository) {
         this.jwtService = jwtService;
         this.userRepository = userRepository;
+        this.adminUserRepository = adminUserRepository;
     }
 
     @Override
@@ -48,20 +54,32 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         String userId = jwtService.extractUserId(token);
+        String role = jwtService.extractRole(token);
 
-        Optional<User> maybeUser = userRepository.findById(UUID.fromString(userId));
-        if (!maybeUser.isPresent()) {   // Java 8 style
-            filterChain.doFilter(request, response);
-            return;
+        UsernamePasswordAuthenticationToken authentication;
+        if ("ADMIN".equals(role)) {
+            Optional<AdminUser> maybeAdmin = adminUserRepository.findById(UUID.fromString(userId));
+            if (!maybeAdmin.isPresent()) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            AdminUser admin = maybeAdmin.get();
+            authentication = new UsernamePasswordAuthenticationToken(
+                    admin.getMobile(),
+                    null,
+                    admin.getAuthorities());
+        } else {
+            Optional<User> maybeUser = userRepository.findById(UUID.fromString(userId));
+            if (!maybeUser.isPresent()) {   // Java 8 style
+                filterChain.doFilter(request, response);
+                return;
+            }
+            User user = maybeUser.get();
+            authentication = new UsernamePasswordAuthenticationToken(
+                    user.getMobile(),      // principal
+                    null,
+                    user.getAuthorities()); // your GrantedAuthorities
         }
-
-        User user = maybeUser.get();
-
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(
-                        user.getMobile(),      // principal
-                        null,
-                        user.getAuthorities()); // your GrantedAuthorities
 
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request));

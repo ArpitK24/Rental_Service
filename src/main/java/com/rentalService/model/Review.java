@@ -1,5 +1,6 @@
 package com.rentalService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -20,10 +21,28 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({
+            "hibernateLazyInitializer",
+            "handler",
+            "authorities",
+            "password",
+            "username",
+            "enabled",
+            "accountNonExpired",
+            "accountNonLocked",
+            "credentialsNonExpired",
+            "interests"
+    })
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id", nullable = false)
+    @JsonIgnoreProperties({
+            "hibernateLazyInitializer",
+            "handler",
+            "owner",
+            "ownerId"
+    })
     private Vehicle vehicle;
 
     @Column(nullable = false)

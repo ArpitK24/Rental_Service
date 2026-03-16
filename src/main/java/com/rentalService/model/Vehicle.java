@@ -1,5 +1,7 @@
 package com.rentalService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -22,6 +24,18 @@ public class Vehicle {
     // vendor (owner)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", nullable = false)
+    @JsonIgnoreProperties({
+            "hibernateLazyInitializer",
+            "handler",
+            "authorities",
+            "password",
+            "username",
+            "enabled",
+            "accountNonExpired",
+            "accountNonLocked",
+            "credentialsNonExpired",
+            "interests"
+    })
     private User vendor;
 
     @Column(length = 200)
@@ -232,6 +246,7 @@ public class Vehicle {
     /**
      * Service previously called getOwner(); keep that contract returning User (vendor).
      */
+    @JsonIgnore
     public User getOwner() {
         return this.vendor;
     }
@@ -239,6 +254,7 @@ public class Vehicle {
     /**
      * Service previously called getOwnerId(); return vendor id if vendor present.
      */
+    @JsonIgnore
     public UUID getOwnerId() {
         return this.vendor == null ? null : this.vendor.getId();
     }

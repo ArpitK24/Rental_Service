@@ -117,16 +117,6 @@ public class VehicleController {
     }
 
     /**
-     * Vendor: Toggle vehicle status between ACTIVE and INACTIVE
-     */
-    @PatchMapping("/{id}/toggle-active")
-    public ResponseEntity<Vehicle> toggleVehicleStatus(@PathVariable UUID id, Authentication authentication) {
-        String mobile = authentication.getName();
-        Vehicle updatedVehicle = vehicleService.toggleVehicleStatus(id, mobile);
-        return ResponseEntity.ok(updatedVehicle);
-    }
-
-    /**
      * Vendor: Update vehicle details
      */
     @PutMapping("/{id}")
