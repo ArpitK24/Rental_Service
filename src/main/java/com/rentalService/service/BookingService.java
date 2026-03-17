@@ -157,8 +157,12 @@ public class BookingService {
             throw new IllegalArgumentException("You are not authorized to modify this booking");
         }
 
-        if (newEndDate.isBefore(booking.getEndDate())) {
+        if (newEndDate.isEqual(booking.getEndDate()) || newEndDate.isBefore(booking.getEndDate())) {
             throw new IllegalArgumentException("newEndDate must be after current endDate");
+        }
+
+        if (!(booking.getStatus() == BookingStatus.PENDING || booking.getStatus() == BookingStatus.CONFIRMED)) {
+            throw new IllegalArgumentException("Only PENDING or CONFIRMED bookings can be extended");
         }
 
         List<BookingStatus> active = new java.util.ArrayList<BookingStatus>();

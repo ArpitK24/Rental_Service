@@ -28,7 +28,7 @@ public class Notification {
     @Column(length = 100)
     private String type;
 
-    @Column(nullable = false)
+    @Column(name = "is_read", nullable = false)
     private boolean read;
 
     private OffsetDateTime createdAt;

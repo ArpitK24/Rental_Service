@@ -8,9 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/bookings")
@@ -22,21 +24,8 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    /**
-     *  Customer: Create new booking
-     * 
-     * Example POST: /api/bookings/create
-     * Headers: Authorization: Bearer <JWT>
-     * Body (form-data or JSON):
-     * {
-     *   "vehicleId": "uuid",
-     *   "startDate": "2025-11-10",
-     *   "endDate": "2025-11-15",
-     *   "withDriver": true
-     * }
-     */
     @PostMapping("/create")
-    public ResponseEntity<Booking> createBooking(
+    public ResponseEntity<Map<String, Object>> createBooking(
             @RequestParam UUID vehicleId,
             @RequestParam String startDate,
             @RequestParam String endDate,
@@ -51,110 +40,116 @@ public class BookingController {
                 LocalDate.parse(endDate),
                 withDriver
         );
-        return ResponseEntity.ok(booking);
+        return ResponseEntity.ok(toBookingResponse(booking));
     }
 
-    /**
-     *  Vendor: Update booking status (approve/reject)
-     * 
-     * Example PATCH: /api/bookings/vendor/{bookingId}/status
-     * Body param: status=CONFIRMED or REJECTED
-     */
     @PatchMapping("/vendor/{bookingId}/status")
-    public ResponseEntity<Booking> updateBookingStatus(
+    public ResponseEntity<Map<String, Object>> updateBookingStatus(
             @PathVariable UUID bookingId,
             @RequestParam BookingStatus status,
             Authentication authentication
     ) {
         String vendorMobile = authentication.getName();
         Booking booking = bookingService.updateBookingStatus(bookingId, status, vendorMobile);
-        return ResponseEntity.ok(booking);
+        return ResponseEntity.ok(toBookingResponse(booking));
     }
 
-    /**
-     *  Customer: Cancel booking
-     * 
-     * Example PATCH: /api/bookings/{bookingId}/cancel
-     */
     @PatchMapping("/{bookingId}/cancel")
-    public ResponseEntity<Booking> cancelBooking(
+    public ResponseEntity<Map<String, Object>> cancelBooking(
             @PathVariable UUID bookingId,
             Authentication authentication
     ) {
         String customerMobile = authentication.getName();
         Booking booking = bookingService.cancelBooking(bookingId, customerMobile);
-        return ResponseEntity.ok(booking);
+        return ResponseEntity.ok(toBookingResponse(booking));
     }
 
-    /**
-     *  Vendor: Get all bookings (requests, confirmed, etc.)
-     * 
-     * Example GET: /api/bookings/vendor/my
-     */
     @GetMapping("/vendor/my")
-    public ResponseEntity<List<Booking>> getVendorBookings(Authentication authentication) {
+    public ResponseEntity<List<Map<String, Object>>> getVendorBookings(Authentication authentication) {
         String vendorMobile = authentication.getName();
-        return ResponseEntity.ok(bookingService.getVendorBookings(vendorMobile));
+        List<Map<String, Object>> response = bookingService.getVendorBookings(vendorMobile)
+                .stream().map(this::toBookingResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
-    /**
-     *  Customer: Get all my bookings
-     * 
-     * Example GET: /api/bookings/my
-     */
     @GetMapping("/my")
-    public ResponseEntity<List<Booking>> getCustomerBookings(Authentication authentication) {
+    public ResponseEntity<List<Map<String, Object>>> getCustomerBookings(Authentication authentication) {
         String customerMobile = authentication.getName();
-        return ResponseEntity.ok(bookingService.getCustomerBookings(customerMobile));
+        List<Map<String, Object>> response = bookingService.getCustomerBookings(customerMobile)
+                .stream().map(this::toBookingResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
-    /**
-     * Customer: Get booking details
-     * GET /bookings/{bookingId}
-     */
     @GetMapping("/{bookingId}")
-    public ResponseEntity<Booking> getBookingById(
+    public ResponseEntity<Map<String, Object>> getBookingById(
             @PathVariable UUID bookingId,
             Authentication authentication
     ) {
         String customerMobile = authentication.getName();
-        return ResponseEntity.ok(bookingService.getBookingByIdForCustomer(bookingId, customerMobile));
+        Booking booking = bookingService.getBookingByIdForCustomer(bookingId, customerMobile);
+        return ResponseEntity.ok(toBookingResponse(booking));
     }
 
-    /**
-     * Customer: Extend booking end date
-     * PATCH /bookings/{bookingId}/extend
-     * Body: { "endDate": "YYYY-MM-DD" }
-     */
     @PatchMapping("/{bookingId}/extend")
-    public ResponseEntity<Booking> extendBooking(
+    public ResponseEntity<Map<String, Object>> extendBooking(
             @PathVariable UUID bookingId,
             @RequestBody Map<String, String> body,
             Authentication authentication
     ) {
         String customerMobile = authentication.getName();
         String endDate = body.get("endDate");
+        if (endDate == null || endDate.trim().isEmpty()) {
+            throw new IllegalArgumentException("endDate is required in format YYYY-MM-DD");
+        }
         Booking booking = bookingService.extendBooking(bookingId, customerMobile, LocalDate.parse(endDate));
-        return ResponseEntity.ok(booking);
+        return ResponseEntity.ok(toBookingResponse(booking));
     }
 
-    /**
-     * Customer: Upcoming bookings
-     * GET /bookings/upcoming
-     */
     @GetMapping("/upcoming")
-    public ResponseEntity<List<Booking>> getUpcoming(Authentication authentication) {
+    public ResponseEntity<List<Map<String, Object>>> getUpcoming(Authentication authentication) {
         String customerMobile = authentication.getName();
-        return ResponseEntity.ok(bookingService.getUpcomingBookings(customerMobile));
+        List<Map<String, Object>> response = bookingService.getUpcomingBookings(customerMobile)
+                .stream().map(this::toBookingResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
-    /**
-     * Customer: Completed bookings
-     * GET /bookings/completed
-     */
     @GetMapping("/completed")
-    public ResponseEntity<List<Booking>> getCompleted(Authentication authentication) {
+    public ResponseEntity<List<Map<String, Object>>> getCompleted(Authentication authentication) {
         String customerMobile = authentication.getName();
-        return ResponseEntity.ok(bookingService.getCompletedBookings(customerMobile));
+        List<Map<String, Object>> response = bookingService.getCompletedBookings(customerMobile)
+                .stream().map(this::toBookingResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    private Map<String, Object> toBookingResponse(Booking booking) {
+        Map<String, Object> m = new LinkedHashMap<String, Object>();
+        m.put("id", booking.getId());
+        m.put("startDate", booking.getStartDate());
+        m.put("endDate", booking.getEndDate());
+        m.put("pickupLocation", booking.getPickupLocation());
+        m.put("dropoffLocation", booking.getDropoffLocation());
+        m.put("withDriver", booking.isWithDriver());
+        m.put("totalPrice", booking.getTotalPrice());
+        m.put("status", booking.getStatus());
+        m.put("createdAt", booking.getCreatedAt());
+        m.put("updatedAt", booking.getUpdatedAt());
+
+        if (booking.getCustomer() != null) {
+            Map<String, Object> customer = new LinkedHashMap<String, Object>();
+            customer.put("id", booking.getCustomer().getId());
+            customer.put("mobile", booking.getCustomer().getMobile());
+            customer.put("name", booking.getCustomer().getName());
+            m.put("customer", customer);
+        }
+
+        if (booking.getVehicle() != null) {
+            Map<String, Object> vehicle = new LinkedHashMap<String, Object>();
+            vehicle.put("id", booking.getVehicle().getId());
+            vehicle.put("vehicleName", booking.getVehicle().getVehicleName());
+            vehicle.put("vehicleBrand", booking.getVehicle().getVehicleBrand());
+            vehicle.put("status", booking.getVehicle().getStatus());
+            m.put("vehicle", vehicle);
+        }
+        return m;
     }
 }

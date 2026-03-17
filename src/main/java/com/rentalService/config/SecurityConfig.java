@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .antMatchers("/admin/auth/**").permitAll()
                 .antMatchers("/auth/**").permitAll()          // no /api prefix if your context path already handles it
                 .antMatchers("/bookings/**").authenticated()
+                .antMatchers("/notifications/**").authenticated()
                 .anyRequest().permitAll()
             .and()
             .authenticationProvider(authenticationProvider())
