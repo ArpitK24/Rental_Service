@@ -29,11 +29,14 @@ public  class VehicleAdminServiceImpl implements VehicleAdminService {
 
     private final VehicleRepository vehicleRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public VehicleAdminServiceImpl(VehicleRepository vehicleRepository,
-                                   UserRepository userRepository) {
+                                   UserRepository userRepository,
+                                   NotificationService notificationService) {
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -117,8 +120,7 @@ public  class VehicleAdminServiceImpl implements VehicleAdminService {
         }
 
         Vehicle saved = vehicleRepository.save(vehicle);
-
-        // Optional: trigger notifications for owner here
+        notifyOwnerStatusChange(saved, "ADMIN_VEHICLE_STATUS_CHANGED");
 
         return toListItemDto(saved);
     }
@@ -198,6 +200,23 @@ public  class VehicleAdminServiceImpl implements VehicleAdminService {
         vehicle.setApprovedByAdminId(adminId);
         vehicle.setApprovedAt(OffsetDateTime.now());
         vehicle.setRejectionReason(null);
-        return toListItemDto(vehicleRepository.save(vehicle));
+        Vehicle saved = vehicleRepository.save(vehicle);
+        notifyOwnerStatusChange(saved, "ADMIN_VEHICLE_TOGGLED");
+        return toListItemDto(saved);
+    }
+
+    private void notifyOwnerStatusChange(Vehicle vehicle, String type) {
+        try {
+            User owner = vehicle.getOwner();
+            if (owner == null) return;
+            String name = vehicle.getVehicleName() != null ? vehicle.getVehicleName() : String.valueOf(vehicle.getId());
+            notificationService.createNotification(
+                    owner,
+                    "Your vehicle " + name + " status changed to " + vehicle.getStatus(),
+                    type
+            );
+        } catch (Exception ignored) {
+            // Notification failures must not fail admin moderation workflow.
+        }
     }
 }

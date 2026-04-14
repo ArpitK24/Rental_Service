@@ -43,4 +43,20 @@ public class NotificationService {
         }
         return n;
     }
+
+    public Notification createNotification(User user, String message, String type) {
+        if (user == null) {
+            throw new IllegalArgumentException("User is required");
+        }
+        if (message == null || message.trim().isEmpty()) {
+            throw new IllegalArgumentException("Message is required");
+        }
+
+        Notification n = new Notification();
+        n.setUser(user);
+        n.setMessage(message);
+        n.setType(type);
+        n.setRead(false);
+        return notificationRepository.save(n);
+    }
 }

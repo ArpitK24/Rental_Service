@@ -18,6 +18,7 @@ import java.util.UUID;
 public class BookingService {
 
     private final CardController cardController;
+    private final NotificationService notificationService;
 
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
@@ -25,11 +26,14 @@ public class BookingService {
 
     public BookingService(BookingRepository bookingRepository,
                           UserRepository userRepository,
-                          VehicleRepository vehicleRepository, CardController cardController) {
+                          VehicleRepository vehicleRepository,
+                          CardController cardController,
+                          NotificationService notificationService) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.vehicleRepository = vehicleRepository;
         this.cardController = cardController;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -76,7 +80,13 @@ public class BookingService {
         booking.setTotalPrice(totalPrice);
         booking.setStatus(BookingStatus.PENDING);
 
-        return bookingRepository.save(booking);
+        Booking saved = bookingRepository.save(booking);
+        notifySafely(
+                vehicle.getVendor(),
+                "New booking request for " + vehicle.getVehicleName() + " (Booking ID: " + saved.getId() + ")",
+                "BOOKING_CREATED"
+        );
+        return saved;
     }
 
     /**
@@ -95,7 +105,15 @@ public class BookingService {
         }
 
         booking.setStatus(status);
-        return bookingRepository.save(booking);
+        Booking saved = bookingRepository.save(booking);
+        if (status == BookingStatus.CONFIRMED || status == BookingStatus.REJECTED) {
+            notifySafely(
+                    saved.getCustomer(),
+                    "Your booking " + saved.getId() + " is now " + status.name(),
+                    "BOOKING_STATUS_CHANGED"
+            );
+        }
+        return saved;
     }
 
     /**
@@ -207,5 +225,13 @@ public class BookingService {
         User customer = userRepository.findByMobile(customerMobile)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
         return bookingRepository.findByCustomerAndStatus(customer, BookingStatus.COMPLETED);
+    }
+
+    private void notifySafely(User user, String message, String type) {
+        try {
+            notificationService.createNotification(user, message, type);
+        } catch (Exception ignored) {
+            // Notification failures must not fail the booking workflow.
+        }
     }
 }
