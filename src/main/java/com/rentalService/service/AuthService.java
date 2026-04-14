@@ -4,6 +4,7 @@ import com.rentalService.config.JwtService;
 import com.rentalService.dto.RegisterCustomerDto;
 import com.rentalService.dto.RegisterVendorDto;
 import com.rentalService.dto.TokenPair;
+import com.rentalService.dto.UserResponseDto;
 import com.rentalService.model.OtpCode;
 import com.rentalService.model.RefreshToken;
 import com.rentalService.model.Role;
@@ -33,6 +34,8 @@ public class AuthService {
 
     private final long refreshTtlMs;
     private final int inactivityDays;
+    private final int otpMaxRequests;
+    private final int otpWindowMinutes;
     private static final SecureRandom RAND = new SecureRandom();
 
     public AuthService(
@@ -41,7 +44,9 @@ public class AuthService {
             RefreshTokenRepository refreshTokens,
             JwtService jwt,
             @Value("${jwt.refresh-token.expiration}") long refreshTtlMs,
-            @Value("${security.inactivity-days:30}") int inactivityDays
+            @Value("${security.inactivity-days:30}") int inactivityDays,
+            @Value("${otp.rate.limit.max:3}") int otpMaxRequests,
+            @Value("${otp.rate.limit.window-minutes:10}") int otpWindowMinutes
     ) {
         this.users = users;
         this.otps = otps;
@@ -49,9 +54,22 @@ public class AuthService {
         this.jwt = jwt;
         this.refreshTtlMs = refreshTtlMs;
         this.inactivityDays = inactivityDays;
+        this.otpMaxRequests = otpMaxRequests;
+        this.otpWindowMinutes = otpWindowMinutes;
     }
 
     public void requestOtp(String mobile) {
+        Optional<User> maybeUser = users.findByMobile(mobile);
+        if (!maybeUser.isPresent()) {
+            throw new IllegalArgumentException("Mobile number not registered");
+        }
+
+        OffsetDateTime cutoff = OffsetDateTime.now().minusMinutes(otpWindowMinutes);
+        long recentCount = otps.countByMobileAndCreatedAtAfter(mobile, cutoff);
+        if (recentCount >= otpMaxRequests) {
+            throw new IllegalArgumentException("Too many OTP requests. Please try again later.");
+        }
+
         String code = String.format("%06d", RAND.nextInt(1_000_000));
 
         OtpCode otp = new OtpCode();
@@ -117,6 +135,11 @@ public class AuthService {
     }
 
     public User registerCustomer(RegisterCustomerDto dto) {
+        Optional<User> existing = users.findByMobile(dto.getMobile());
+        if (existing.isPresent()) {
+            Role role = existing.get().getRole();
+            throw new IllegalArgumentException("Mobile number already registered as " + role.name());
+        }
         User user = new User();
         user.setMobile(dto.getMobile());
         user.setRole(Role.CUSTOMER);
@@ -140,6 +163,11 @@ public class AuthService {
     }
 
     public User registerVendor(RegisterVendorDto dto) {
+        Optional<User> existing = users.findByMobile(dto.getMobile());
+        if (existing.isPresent()) {
+            Role role = existing.get().getRole();
+            throw new IllegalArgumentException("Mobile number already registered as " + role.name());
+        }
         User user = new User();
         user.setMobile(dto.getMobile());
         user.setRole(Role.VENDOR);
@@ -208,6 +236,30 @@ public class AuthService {
         user.setLoggedOut(true);
         users.save(user);
         refreshTokens.deleteByUser(user);
+    }
+
+    public UserResponseDto getCurrentUserByMobile(String mobile) {
+        User user = users.findByMobile(mobile)
+                .orElseThrow(new java.util.function.Supplier<IllegalArgumentException>() {
+                    @Override
+                    public IllegalArgumentException get() {
+                        return new IllegalArgumentException("User not found");
+                    }
+                });
+        return new UserResponseDto(
+                user.getId(),
+                user.getMobile(),
+                user.getRole().name(),
+                user.getName(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getCity(),
+                user.getDob(),
+                user.getInterests(),
+                user.getCreatedAt(),
+                user.getUpdatedAt(),
+                user.getLastActiveAt()
+        );
     }
 
     private String createRefresh(User user) {

@@ -3,10 +3,13 @@ package com.rentalService.controller;
 import com.rentalService.dto.RegisterCustomerDto;
 import com.rentalService.dto.RegisterVendorDto;
 import com.rentalService.dto.TokenPair;
+import com.rentalService.dto.UserResponseDto;
 import com.rentalService.model.User;
 import com.rentalService.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -75,5 +78,15 @@ public class AuthController {
         Map<String, String> body = new java.util.HashMap<>();
         body.put("message", "Logged out successfully");
         return ResponseEntity.ok(body);
+    }
+
+    // 7. Current user profile (token required)
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDto> me(Authentication authentication) {
+        if (authentication == null) {
+            throw new AuthenticationCredentialsNotFoundException("Authentication required");
+        }
+        String mobile = authentication.getName();
+        return ResponseEntity.ok(authService.getCurrentUserByMobile(mobile));
     }
 }

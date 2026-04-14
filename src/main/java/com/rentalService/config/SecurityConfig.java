@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,7 +35,12 @@ public class SecurityConfig {
             .and()
             .authorizeRequests()
                 .antMatchers("/admin/auth/**").permitAll()
+                .antMatchers("/auth/me").authenticated()
                 .antMatchers("/auth/**").permitAll()          // no /api prefix if your context path already handles it
+                .antMatchers(HttpMethod.POST, "/vehicles/add").authenticated()
+                .antMatchers(HttpMethod.GET, "/vehicles/my").authenticated()
+                .antMatchers(HttpMethod.PUT, "/vehicles/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/vehicles/**").authenticated()
                 .antMatchers("/bookings/**").authenticated()
                 .antMatchers("/notifications/**").authenticated()
                 .anyRequest().permitAll()
