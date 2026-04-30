@@ -67,7 +67,12 @@ public class VehicleService {
 
         // ✅ Ensure storage directory exists
         File dir = new File(vehicleStoragePath);
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new IllegalStateException("Unable to create vehicle upload directory: " + dir.getAbsolutePath());
+        }
+        if (!dir.isDirectory() || !dir.canWrite()) {
+            throw new IllegalStateException("Vehicle upload directory is not writable: " + dir.getAbsolutePath());
+        }
 
         // ✅ Save images
         String drivingLicenseUrl = saveFile(drivingLicense, "license_");
@@ -121,7 +126,8 @@ public class VehicleService {
         String uniqueName = prefix + UUID.randomUUID() + "_" + file.getOriginalFilename();
         Path destPath = Paths.get(vehicleStoragePath, uniqueName); // Java 8
         Files.copy(file.getInputStream(), destPath, StandardCopyOption.REPLACE_EXISTING);
-        return "/api/vehicles/images/" + uniqueName;
+        // No "/api" prefix in this project; keep URLs consistent with controller mapping.
+        return "/vehicles/images/" + uniqueName;
     }
 
 
