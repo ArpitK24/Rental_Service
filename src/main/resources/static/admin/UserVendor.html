@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Vendor | RentRover</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work_Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e3e2e0",
+                    "on-surface": "#1a1c1a",
+                    "primary-fixed": "#ffdbcd",
+                    "tertiary-container": "#d78800",
+                    "on-tertiary-container": "#482b00",
+                    "error-container": "#ffdad6",
+                    "outline": "#897365",
+                    "on-secondary-fixed-variant": "#5d4037",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffddb9",
+                    "on-tertiary-fixed": "#2b1700",
+                    "inverse-surface": "#2f312f",
+                    "on-primary-fixed": "#351000",
+                    "on-secondary-fixed": "#2c160e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#795950",
+                    "surface-variant": "#e3e2e0",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#faf9f6",
+                    "secondary-fixed": "#ffdbd0",
+                    "primary-container": "#fa7025",
+                    "on-background": "#1a1c1a",
+                    "inverse-on-surface": "#f2f1ee",
+                    "outline-variant": "#dcc1b1",
+                    "surface-container-high": "#e9e8e5",
+                    "primary-fixed-dim": "#ffb595",
+                    "surface-container-low": "#f4f3f1",
+                    "inverse-primary": "#ffb595",
+                    "tertiary": "#865300",
+                    "secondary": "#77574d",
+                    "on-primary-container": "#591f00",
+                    "background": "#faf9f6",
+                    "surface-container": "#efeeeb",
+                    "secondary-container": "#fed3c7",
+                    "surface-dim": "#dbdad7",
+                    "tertiary-fixed-dim": "#ffb961",
+                    "surface-tint": "#a23f00",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#e7bdb1",
+                    "primary": "#a23f00",
+                    "on-primary-fixed-variant": "#7c2e00",
+                    "error": "#ba1a1a",
+                    "surface": "#faf9f6",
+                    "on-tertiary-fixed-variant": "#663e00",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#564337"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Work Sans"],
+                    "label": ["Work Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-50 bg-[#faf9f6] dark:bg-stone-950">
+<div class="flex justify-between items-center px-8 h-20 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-bold text-[#a23f00] dark:text-[#fa7025] font-['Manrope'] tracking-tight">RentRover</span>
+<nav class="hidden md:flex space-x-8">
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] font-bold tracking-tight" href="Home.html">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] font-bold tracking-tight" href="Booking.html">Bookings</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] font-bold tracking-tight" href="Vehicle.html">Vehicles</a>
+<a class="text-[#a23f00] dark:text-[#fa7025] border-b-2 border-[#a23f00] pb-1 font-['Manrope'] font-bold tracking-tight" href="User.html">Users</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] font-bold tracking-tight" href="Reports.html">Reports</a>
+</nav>
+</div>
+<div class="flex items-center space-x-6">
+<div class="h-10 w-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/20">
+<img alt="Administrator Profile" class="h-full w-full object-cover" data-alt="professional male administrator portrait in a sharp suit with a neutral background and warm studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBmCrmWQIPdcWsIQX4Gn1BKK-4v6nJchjp26TGudMhPPPMFdQIFwCnoJn5QO_9xL_AHUCJxByU5WdjI1b_iZM1BPuVe2WoP5Bu7uX3MOpZafIsAdmhNBXCHOIFbd6cnJljEaT7bZbLoRoqcnTstYrdJy8Jx8LiSakoKE_EGv5WrV0uQW-zxk-uEz33yi_b2vQdOBLtvWwf_06j7jr_QkrFbEjsmSUX2zRWShv2iJdpqrvsUQAxuMB3DgZ8VDe28Led-xzpjp_6CUXD"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-8 py-8">
+<!-- Breadcrumb / Back Navigation -->
+<div class="mb-8">
+<a class="inline-flex items-center text-on-surface-variant hover:text-primary transition-colors group" href="User.html">
+<span class="material-symbols-outlined mr-2 transition-transform group-hover:-translate-x-1" data-icon="arrow_back">arrow_back</span>
+<span class="font-medium tracking-tight font-headline">Back to Users</span>
+</a>
+</div>
+<!-- Layout Grid: Profile Summary and Meta Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+<!-- Profile Card (Bento Style) -->
+<div class="lg:col-span-8 bg-surface-container-low rounded-xl p-8 flex flex-col md:flex-row gap-10 items-start">
+<div class="relative shrink-0">
+<div class="w-32 h-32 rounded-xl overflow-hidden bg-surface-container-highest">
+<img alt="Vendor Profile" class="h-full w-full object-cover" data-alt="close-up portrait of a mature confident man smiling against a blurred urban background with warm sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcCQ4eSGC_T6W9rs7BYUjFFSN-1shfLfn7WcLq58mHmqRHjTJSQCTlMmo6PRMjsvc1mWGzRHKU1ts8uoippoiA0AgsWtPXUZNGe5CLXfcYEPACzlRCwzf90jbw76PPyRt1U78-KZzZ5zdL9xK7r_n2Ixudvqzh3P_hQnZPWkpmssBDQwfevOtl1p5owlPomk9ozwDt1h7u8oEcE6o-LxsOOgO7Afhao0zIuYj1bedgfj1EUnV3Ov7rR-yUqMfjist-8RfEH2VEgS9v"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
+                        Vendor
+                    </div>
+</div>
+<div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+<div class="md:col-span-2">
+<h1 class="text-3xl font-extrabold text-on-surface tracking-tight mb-1">Rajesh Malhotra</h1>
+<p class="text-on-surface-variant font-medium">User ID: VEND-99283-RM</p>
+</div>
+<div class="space-y-1">
+<span class="block text-[10px] font-bold text-on-surface-variant tracking-widest uppercase opacity-60">Email ID</span>
+<p class="text-on-surface font-medium">rajesh.malhotra@luxuryfleet.in</p>
+</div>
+<div class="space-y-1">
+<span class="block text-[10px] font-bold text-on-surface-variant tracking-widest uppercase opacity-60">Mobile Number</span>
+<p class="text-on-surface font-medium">+91 98765 43210</p>
+</div>
+<div class="space-y-1">
+<span class="block text-[10px] font-bold text-on-surface-variant tracking-widest uppercase opacity-60">Date of Join</span>
+<p class="text-on-surface font-medium">October 14, 2021</p>
+</div>
+<div class="space-y-1">
+<span class="block text-[10px] font-bold text-on-surface-variant tracking-widest uppercase opacity-60">Address</span>
+<p class="text-on-surface font-medium leading-relaxed">Level 4, Sky Tower, MG Road, Gurgaon, Haryana - 122002</p>
+</div>
+</div>
+</div>
+<!-- Stats/Actions Side Panel -->
+<div class="lg:col-span-4 grid grid-cols-1 gap-6">
+<div class="bg-surface-container-highest rounded-xl p-6 flex flex-col justify-between">
+<div>
+<span class="block text-[10px] font-bold text-on-surface-variant tracking-widest uppercase mb-4">Total Assets</span>
+<h2 class="text-4xl font-extrabold text-primary mb-2">24</h2>
+<p class="text-sm text-on-surface-variant">Active vehicles in fleet</p>
+</div>
+<div class="mt-6 flex gap-3">
+</div>
+</div>
+<div class="bg-surface-container-high rounded-xl p-6 border border-outline-variant/10">
+<span class="block text-[10px] font-bold text-on-surface-variant tracking-widest uppercase mb-4">Security Status</span>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="verified_user" data-weight="fill">verified_user</span>
+<span class="font-semibold text-on-surface">Verified Partner</span>
+</div>
+<button class="w-full text-left py-2 text-sm text-on-surface-variant hover:text-primary flex items-center justify-between group">
+                        Update Credentials
+                        <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Fleet History Section -->
+<section class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-2xl font-extrabold text-on-surface tracking-tight mb-2">Fleet History</h2>
+<p class="text-on-surface-variant max-w-xl">Comprehensive logs of vehicle assignments and rental performance across the current vendor lifecycle.</p>
+</div>
+<div class="flex gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-md pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 w-48" placeholder="Filter Vehicle ID..." type="text"/>
+</div>
+<button class="p-2 bg-surface-container-low rounded-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Fleet Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">Vehicle ID</th>
+<th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">Vehicle + Brand</th>
+<th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">Start Date</th>
+<th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">End Date</th>
+<th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">Status</th>
+<th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-on-surface-variant font-medium">VHC-2024-X1</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest overflow-hidden">
+<img alt="Vehicle Thumb" class="w-full h-full object-cover" data-alt="sleek side profile of a modern black luxury sedan in a studio setting with dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8h1jUjnfn5GG6_zYZ7QAyjMUF4tAXk7P4FS6o3CpPOm8YwQZrbj6jVvWPqPufkLcjrFr-LxZI76Bf29hsr9j4beqTL9N19O3G_b5nP7X8w9Gv4PHfkHapGxCTRMy9obD4ebtlshVz2II-9QBpSydtFrpt1Wlj9rQ3kXN3I-JAXot_V1vibKX0xqRnsa2nOu3zgwAbjCHiihxHN-4k-2xz4hyrdELOr1gXwp60-9ftv2LtPpPDHpSx86QJn1Q5tyo2qJklELii_k3u"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">BMW X5 M-Sport</p>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Luxury SUV</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Jan 12, 2024</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Jan 18, 2024</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-tertiary-container/10 text-on-tertiary-container rounded-full text-[10px] font-bold tracking-wider uppercase border border-tertiary-container/20">Completed</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-on-surface-variant font-medium">VHC-2024-Z9</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest overflow-hidden">
+<img alt="Vehicle Thumb" class="w-full h-full object-cover" data-alt="front view of a white sports performance car on an asphalt road at sunrise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuovZ791e2gyd3Ikht56z5-mcTumLIh5Ih2vUHd9hZI3tAd7SUHJ7VFyY5ZIrsbxL9g-BPQ5tN7DcR02KOpAN_AcZ0PF1SSJXxiaacFOopnez_fApr3qOqz6MEbVzu_Xgvbw3EeIjbsvdRLF48IrhKknjHDgSOSsfORFauilIqX1G8ndTUFTV3VEQ-1fTdt5kzhZBp6ufe4AkIqA5T69LvMVt5pLJh7AnznlhXMzsahQZE8leblhvf0_H6xLO7bAipjIcLd3V7KlPJ"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Audi A6</p>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Executive Sedan</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">May 05, 2024</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">--</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold tracking-wider uppercase">Ongoing</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-on-surface-variant font-medium">VHC-2023-F2</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest overflow-hidden">
+<img alt="Vehicle Thumb" class="w-full h-full object-cover" data-alt="rear view of a bright blue performance sports car parked near a scenic coastal road" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD50m98-YsRUn6muTP6D-KY8mnWsUH0TNT3x5Hzwwy12mg2cxdzUxBWWwFReomDF2Yk9rWF-SjKg0CGMmLPJ8uqUokD-HHLH96SteQcyCq69rY4TFTzEdhqjq5VPJE9gYgaZ06PD4vCf2YId-gDS8XBv-V4nif9HbYMSAqG4bj0l1UB2yjZUN208Tn6ZTa8Fmz9Z2bYg8U9iqbVXwy5QWi40WXLF0bS803-2qQUBxh8ZBQvqaULRj4-3D4Dyd1ajwgcNeYITRozhQjq"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Porsche Taycan</p>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Electric Sport</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Dec 20, 2023</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Dec 22, 2023</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold tracking-wider uppercase">Cancelled</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-on-surface-variant font-medium">VHC-2024-M4</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest overflow-hidden">
+<img alt="Vehicle Thumb" class="w-full h-full object-cover" data-alt="minimalist overhead shot of a premium silver luxury vehicle on a clean white surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIUCvXKoQF6NhWZx-fdWPtCkcHaCQrZUJLqqXTpmjQ3Ls-nwgWUXDt6KCMeRujuhhHpEock2tlgfK37sXSBkjnKBDCo4DVLw2q4f7H6PbWvtxPK5xREUieJBQsUigSh4xD3XjoM7zndlWDiKA8HDEyLQN2rQT_qokV1UDefE3sGD7HGi2k3BxRRmTYLM38FtTKddTTEQ5xpw7BQOJDsVwkiMaIMHBbt6v1OuW04F8pXxp3kAWblg-5QiL4fOKPDRvCm-PZVEOt1sLE"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Mercedes-Benz S-Class</p>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Luxury Flagship</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Jun 15, 2024</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Jun 25, 2024</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold tracking-wider uppercase">Upcoming</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination-esque summary -->
+<div class="mt-8 flex justify-between items-center text-xs font-bold tracking-widest uppercase text-on-surface-variant opacity-60">
+<span>Showing 4 of 118 Records</span>
+<div class="flex gap-4">
+<button class="hover:text-primary">Prev</button>
+<button class="text-primary">Next</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Decoration -->
+<footer class="mt-12 py-12 px-8 bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col gap-2">
+<span class="text-lg font-extrabold text-stone-800 dark:text-stone-100 font-['Manrope']">RentRover Admin</span>
+<p class="text-sm text-stone-500 font-['Work_Sans'] tracking-wide">Advanced Fleet Management &amp; Vendor Orchestration</p>
+</div>
+</div>
+</footer>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    function escapeHtml(v) {
+      return String(v == null ? "" : v)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getParam(name) {
+      try {
+        var u = new URL(window.location.href);
+        return u.searchParams.get(name);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    var userId = getParam("userId");
+    var note = document.createElement("div");
+    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
+    note.innerHTML =
+      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant" id="vendorLivePanel">' +
+      '<span class="font-bold text-on-surface">Live Data:</span> loading...' +
+      "</div>";
+    document.body.insertBefore(note, document.body.firstChild);
+
+    (async function () {
+      var el = document.getElementById("vendorLivePanel");
+      if (!el) return;
+      if (!userId) {
+        el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> missing `userId` in URL.';
+        return;
+      }
+      try {
+        var users = await A.apiFetch("/users/getAllUsers", { method: "GET" });
+        var found = null;
+        for (var i = 0; i < (users || []).length; i++) {
+          if (users[i] && users[i].id === userId) { found = users[i]; break; }
+        }
+        if (!found) {
+          el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> user not found.';
+          return;
+        }
+        el.innerHTML =
+          '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">' +
+          '<div><span class="font-bold text-on-surface">Name:</span> ' + escapeHtml(found.name || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">Mobile:</span> ' + escapeHtml(found.mobile || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">Email:</span> ' + escapeHtml(found.email || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">City:</span> ' + escapeHtml(found.city || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">Role:</span> ' + escapeHtml(found.role || "-") + "</div>" +
+          "</div>";
+      } catch (err) {
+        el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> failed to load: ' + escapeHtml(err.message || "Error");
+      }
+    })();
+  })();
+</script>
+</html>

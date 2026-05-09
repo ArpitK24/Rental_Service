@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports | RentRover Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#7c2e00",
+                        "on-background": "#1a1c1a",
+                        "tertiary": "#865300",
+                        "surface-bright": "#faf9f6",
+                        "primary-fixed": "#ffdbcd",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-surface": "#1a1c1a",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dbdad7",
+                        "primary-fixed-dim": "#ffb595",
+                        "surface-tint": "#a23f00",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb961",
+                        "on-primary-fixed": "#351000",
+                        "surface-container-highest": "#e3e2e0",
+                        "secondary": "#77574d",
+                        "background": "#faf9f6",
+                        "on-secondary-container": "#795950",
+                        "on-primary-container": "#591f00",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e9e8e5",
+                        "secondary-fixed": "#ffdbd0",
+                        "tertiary-fixed": "#ffddb9",
+                        "tertiary-container": "#d78800",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb595",
+                        "on-secondary": "#ffffff",
+                        "outline": "#897365",
+                        "on-tertiary-container": "#482b00",
+                        "surface-container": "#efeeeb",
+                        "primary-container": "#fa7025",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f4f3f1",
+                        "secondary-container": "#fed3c7",
+                        "surface-variant": "#e3e2e0",
+                        "on-secondary-fixed": "#2c160e",
+                        "on-surface-variant": "#564337",
+                        "inverse-on-surface": "#f2f1ee",
+                        "on-secondary-fixed-variant": "#5d4037",
+                        "primary": "#a23f00",
+                        "secondary-fixed-dim": "#e7bdb1",
+                        "outline-variant": "#dcc1b1",
+                        "surface": "#faf9f6",
+                        "inverse-surface": "#2f312f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; background-color: #faf9f6; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#e9e8e5] flex flex-col py-6">
+<div class="px-8 mb-10">
+<h1 class="font-headline font-black text-[#a23f00] text-2xl tracking-tighter">RentRover</h1>
+<p class="text-xs text-on-surface-variant font-medium">Curated Fleet Ops</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-8 py-3 text-[#564337] hover:bg-[#f4f3f1] transition-colors duration-200" href="Home.html">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center px-8 py-3 text-[#564337] hover:bg-[#f4f3f1] transition-colors duration-200" href="Booking.html">
+<span class="material-symbols-outlined mr-3">calendar_month</span>
+<span class="font-medium text-sm">Bookings</span>
+</a>
+<a class="flex items-center px-8 py-3 text-[#564337] hover:bg-[#f4f3f1] transition-colors duration-200" href="Vehicle.html">
+<span class="material-symbols-outlined mr-3">directions_car</span>
+<span class="font-medium text-sm">Vehicles</span>
+</a>
+<a class="flex items-center px-8 py-3 text-[#564337] hover:bg-[#f4f3f1] transition-colors duration-200" href="User.html">
+<span class="material-symbols-outlined mr-3">group</span>
+<span class="font-medium text-sm">Users</span>
+</a>
+<a class="flex items-center px-8 py-3 bg-[#ffffff] text-[#a23f00] rounded-l-lg shadow-sm" href="Reports.html">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-medium text-sm">Reports</span>
+</a>
+</nav>
+</aside>
+<main class="ml-64 min-h-screen">
+<header class="w-full top-0 sticky z-10 bg-[#faf9f6] flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-4">
+<h2 class="font-headline text-xl font-bold tracking-tight text-on-surface">Reports and Analytics</h2>
+<span class="px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-full text-[10px] font-bold tracking-widest uppercase">Q1 Performance</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-xl text-sm focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Search metrics..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">   
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Manager Profile" class="h-full w-full object-cover" data-alt="close-up portrait of a professional male manager with a confident expression in a bright studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7YLdtp8gFMZnPgO0NzsR_8fCZ-D6FeRMGHHZEZppZEYcCfnsZ9_LQDO1RDcbmlxmaYjAXHvnaDVmrNZ9c18_brNOkA8bunw2VOUAw5omn4wg0daKPv-c37ye-AWuZsut2gcFkKeIxUSHq7o1DlFSueozKvKGY_xdsv6kVaAp0USrpfTKRsJRHrVaXj2_R0xtlhG4opmBCVxIR7ozdMtN6jcXQUVME4bYCZG52RuWjfyWnTM5DkrcoS4W_98pr_HgEBXbhflpdeR6r"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 transition-all hover:shadow-[0_12px_40px_rgba(86,67,55,0.08)]">
+<div class="flex justify-between items-end mb-8">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant tracking-[0.1em] uppercase mb-1">Performance Overview</p>
+<h3 class="font-headline text-2xl font-bold text-on-surface tracking-tight">Booking Trends</h3>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 bg-surface-container-low text-on-surface-variant rounded-lg text-xs font-semibold">Weekly</button>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary-container rounded-lg text-xs font-semibold">Monthly</button>
+</div>
+</div>
+<div class="h-[320px] w-full relative flex items-end justify-between gap-1 border-b border-outline-variant border-opacity-20 pb-4">
+<div class="absolute inset-0 flex flex-col justify-between py-4 pointer-events-none">
+<div class="border-t border-outline-variant border-opacity-10 w-full"></div>
+<div class="border-t border-outline-variant border-opacity-10 w-full"></div>
+<div class="border-t border-outline-variant border-opacity-10 w-full"></div>
+<div class="border-t border-outline-variant border-opacity-10 w-full"></div>
+</div>
+<div class="relative flex-1 group">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 bg-primary-container opacity-20 rounded-t-lg transition-all duration-300 group-hover:opacity-40" style="height: 45%;"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 bg-primary rounded-t-full" style="height: 45%;"></div>
+</div>
+<div class="relative flex-1 group">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 bg-primary-container opacity-20 rounded-t-lg transition-all duration-300 group-hover:opacity-40" style="height: 60%;"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 bg-primary rounded-t-full" style="height: 60%;"></div>
+</div>
+<div class="relative flex-1 group">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 bg-primary-container opacity-20 rounded-t-lg transition-all duration-300 group-hover:opacity-40" style="height: 52%;"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 bg-primary rounded-t-full" style="height: 52%;"></div>
+</div>
+<div class="relative flex-1 group">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 bg-primary-container opacity-20 rounded-t-lg transition-all duration-300 group-hover:opacity-40" style="height: 75%;"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 bg-primary rounded-t-full" style="height: 75%;"></div>
+</div>
+<div class="relative flex-1 group">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 bg-primary-container opacity-20 rounded-t-lg transition-all duration-300 group-hover:opacity-40" style="height: 90%;"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 bg-primary rounded-t-full" style="height: 90%;"></div>
+</div>
+<div class="relative flex-1 group">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 bg-primary-container opacity-20 rounded-t-lg transition-all duration-300 group-hover:opacity-40" style="height: 82%;"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 bg-primary rounded-t-full" style="height: 82%;"></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-[0_12px_40px_rgba(86,67,55,0.08)]">
+<p class="text-[10px] font-bold text-on-surface-variant tracking-[0.1em] uppercase mb-1">Yield Meta</p>
+<h3 class="font-headline text-lg font-bold text-on-surface mb-6">Product Income</h3>
+<div class="space-y-5">
+<div>
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-on-surface">Luxury Sedans</span>
+<span class="text-primary">$42,500</span>
+</div>
+<div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 85%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-on-surface">Utility SUVs</span>
+<span class="text-primary">$31,200</span>
+</div>
+<div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 62%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-on-surface">Electric Fleet</span>
+<span class="text-primary">$28,900</span>
+</div>
+<div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 58%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-on-surface">Economy Compacts</span>
+<span class="text-primary">$15,400</span>
+</div>
+<div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 31%;"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-xs font-bold text-primary border border-outline-variant border-opacity-20 rounded-xl hover:bg-surface-container-low transition-colors uppercase tracking-widest">Download Full Report</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-tertiary mb-4">person_add</span>
+<h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">New Customers</h4>
+<p class="font-headline text-3xl font-extrabold text-on-surface">+1,248</p>
+</div>
+<div class="mt-4 flex items-center gap-2 text-tertiary text-xs font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        12.5% increase vs last month
+                    </div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-4">storefront</span>
+<h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">New Vendors</h4>
+<p class="font-headline text-3xl font-extrabold text-on-surface">+84</p>
+</div>
+<div class="mt-4 flex items-center gap-2 text-primary text-xs font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        8% increase vs last month
+                    </div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-6 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-on-primary mb-4">workspace_premium</span>
+<h4 class="text-xs font-bold text-on-primary opacity-70 uppercase tracking-widest mb-1">Retention Rate</h4>
+<p class="font-headline text-3xl font-extrabold">94.2%</p>
+</div>
+<div class="mt-4 flex items-center gap-2 text-on-primary text-xs font-bold opacity-90">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                        Market leading performance
+                    </div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-8 transition-all hover:shadow-[0_12px_40px_rgba(86,67,55,0.08)]">
+<div class="flex justify-between items-center mb-10">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant tracking-[0.1em] uppercase mb-1">Ecosystem Growth</p>
+<h3 class="font-headline text-2xl font-bold text-on-surface tracking-tight">User Onboarding Growth</h3>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="h-3 w-3 rounded-full bg-primary"></div>
+<span class="text-xs font-semibold text-on-surface-variant">Customers</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-3 w-3 rounded-full bg-tertiary"></div>
+<span class="text-xs font-semibold text-on-surface-variant">Vendors</span>
+</div>
+</div>
+</div>
+<div class="relative h-[300px] w-full">
+<svg class="w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 1000 300">
+<path d="M0,250 L166,230 L332,180 L498,140 L664,110 L830,60 L1000,40" fill="none" stroke="#a23f00" stroke-linecap="round" stroke-width="4"></path>
+<path d="M0,250 L166,230 L332,180 L498,140 L664,110 L830,60 L1000,40 V300 H0 Z" fill="url(#grad1)" opacity="0.1"></path>
+<path d="M0,280 L166,275 L332,260 L498,245 L664,235 L830,225 L1000,210" fill="none" stroke="#865300" stroke-linecap="round" stroke-width="4"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#a23f00;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#a23f00;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex justify-between pointer-events-none px-2">
+<div class="h-full border-l border-outline-variant border-opacity-10"></div>
+<div class="h-full border-l border-outline-variant border-opacity-10"></div>
+<div class="h-full border-l border-outline-variant border-opacity-10"></div>
+<div class="h-full border-l border-outline-variant border-opacity-10"></div>
+<div class="h-full border-l border-outline-variant border-opacity-10"></div>
+<div class="h-full border-l border-outline-variant border-opacity-10"></div>
+</div>
+</div>
+<div class="flex justify-between mt-6 px-2 text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">
+<span>Month 1</span>
+<span>Month 2</span>
+<span>Month 3</span>
+<span>Month 4</span>
+<span>Month 5</span>
+<span>Month 6</span>
+<span>Current</span>
+</div>
+</div>
+</div>
+<footer class="p-8 pt-0 flex justify-between items-center text-on-surface-variant text-[10px] font-bold tracking-widest uppercase">
+<p>© 2026 RentRover Fleet Management Systems</p>
+</footer>
+</main>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    var note = document.createElement("div");
+    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
+    note.innerHTML =
+      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant">' +
+      '<span class="font-bold text-on-surface">Note:</span> Reporting APIs are not available yet. ' +
+      "This page is ready for wiring once backend endpoints exist." +
+      "</div>";
+    document.body.insertBefore(note, document.body.firstChild);
+  })();
+</script>
+</html>

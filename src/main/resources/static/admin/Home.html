@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard | RentRover Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#d78800",
+                        "background": "#faf9f6",
+                        "secondary-fixed-dim": "#e7bdb1",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "inverse-surface": "#2f312f",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#77574d",
+                        "on-tertiary-container": "#482b00",
+                        "on-primary-fixed-variant": "#7c2e00",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e3e2e0",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb961",
+                        "outline": "#897365",
+                        "on-primary-container": "#591f00",
+                        "on-secondary-fixed": "#2c160e",
+                        "tertiary": "#865300",
+                        "on-surface": "#1a1c1a",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-container-highest": "#e3e2e0",
+                        "inverse-on-surface": "#f2f1ee",
+                        "outline-variant": "#dcc1b1",
+                        "secondary-container": "#fed3c7",
+                        "on-primary-fixed": "#351000",
+                        "tertiary-fixed": "#ffddb9",
+                        "surface-dim": "#dbdad7",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdbd0",
+                        "on-secondary-container": "#795950",
+                        "primary-fixed-dim": "#ffb595",
+                        "surface-container-low": "#f4f3f1",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#efeeeb",
+                        "surface": "#faf9f6",
+                        "on-background": "#1a1c1a",
+                        "primary": "#a23f00",
+                        "surface-tint": "#a23f00",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#5d4037",
+                        "on-tertiary-fixed": "#2b1700",
+                        "primary-container": "#fa7025",
+                        "surface-bright": "#faf9f6",
+                        "inverse-primary": "#ffb595",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#564337",
+                        "surface-container-high": "#e9e8e5",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .brand-logo { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-signature-gradient {
+            background: linear-gradient(135deg, #a23f00 0%, #fa7025 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f4f3f1] dark:bg-stone-900 flex justify-between items-center px-8 h-16 w-full max-w-[1920px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#a23f00] dark:text-[#fa7025] brand-logo">RentRover</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#a23f00] dark:text-[#fa7025] font-bold border-b-2 border-[#a23f00] dark:border-[#fa7025] pb-1 font-headline text-sm uppercase tracking-wider" href="Home.html">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-headline text-sm uppercase tracking-wider" href="Booking.html">Bookings</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-headline text-sm uppercase tracking-wider" href="Vehicle.html">Vehicles</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-headline text-sm uppercase tracking-wider" href="User.html">Users</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-headline text-sm uppercase tracking-wider" href="Reports.html">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high ring-2 ring-outline-variant ring-opacity-20">
+<img alt="Administrator profile photo" class="w-full h-full object-cover" data-alt="professional portrait of a confident male executive in a neutral studio setting with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr1mqzeaYbfONooK21t78DP-ekoSkvGzkEZDgrszPn3bBgfVwVdPENI4fBLY_VHpTH2KQQuk2MtEVKR29Lfvbu18jf7oVqa1soWGCmD_-YX63YfFbjt56VRUXbepxX5DAZcAJwHWaqAEl_Z0yVgw_Z1bTKNsDw5Vrp1GXIxeoyOMM0UeSHgICdSTd8yfIRqdxTro6JwKoVoVWEpiZ-tJlUDYIsxsQt_KEw5H4Sybzj-4YXcMLeKSYZCXwHJq1sGM51jWk6EB_EjlQ8"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-8 max-w-[1920px] mx-auto">
+<!-- Page Title -->
+<div class="mb-10">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Operations Overview</h1>
+<p class="text-on-surface-variant font-body">Welcome back, Admin. Here is what's happening with your fleet today.</p>
+</div>
+<!-- Summary Boxes (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Metric Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="z-10">
+<span class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Total Rented Cars</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-5xl font-extrabold tracking-tighter text-on-surface" id="statTotalUsers">—</span>
+<span class="text-tertiary font-bold text-sm">+12%</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="z-10">
+<span class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Average Rental Duration</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-5xl font-extrabold tracking-tighter text-on-surface" id="statPendingVehicles">—</span>
+<span class="text-on-surface font-medium text-lg italic">days</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-signature-gradient p-8 rounded-xl flex flex-col gap-4 relative overflow-hidden group shadow-lg">
+<div class="z-10">
+<span class="text-xs font-semibold uppercase tracking-wider text-on-primary">Revenue Generated</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-5xl font-extrabold tracking-tighter text-on-primary" id="statRevenuePlaceholder">—</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-white" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<section class="bg-surface-container-low rounded-xl p-8">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold tracking-tight text-on-surface">Recent Activity</h2>
+<div class="flex gap-4">
+<button class="bg-surface-container-lowest text-on-surface-variant px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                    </button>
+<button class="bg-signature-gradient text-white px-6 py-2 rounded-md text-sm font-bold uppercase tracking-wider shadow-sm hover:scale-[1.02] transition-all">
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Scrollable Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-separate border-spacing-y-2">
+<thead>
+<tr class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant opacity-70">
+<th class="px-6 py-3">Booking ID</th>
+<th class="px-6 py-3">Vehicle</th>
+<th class="px-6 py-3">Customer</th>
+<th class="px-6 py-3">Vendor</th>
+<th class="px-6 py-3">Start Date</th>
+<th class="px-6 py-3">End Date</th>
+<th class="px-6 py-3">Status</th>
+</tr>
+</thead>
+<tbody class="font-body text-sm">
+<!-- Row 1 -->
+<tr class="bg-surface-container-lowest hover:translate-x-1 transition-transform duration-200">
+<td class="px-6 py-5 font-bold text-primary">#RR-9021</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Model S Plaid</span>
+<span class="text-xs text-on-surface-variant">Tesla</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-medium">Aditi Sharma</td>
+<td class="px-6 py-5 text-on-surface-variant">Elite Motors</td>
+<td class="px-6 py-5">Oct 24, 2023</td>
+<td class="px-6 py-5">Oct 28, 2023</td>
+<td class="px-6 py-5">
+<span class="bg-tertiary-container/10 text-on-tertiary-container px-3 py-1 rounded-full text-[11px] font-bold uppercase">Ongoing</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/50 hover:translate-x-1 transition-transform duration-200">
+<td class="px-6 py-5 font-bold text-primary">#RR-8954</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Defender 110</span>
+<span class="text-xs text-on-surface-variant">Land Rover</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-medium">Rahul Kapoor</td>
+<td class="px-6 py-5 text-on-surface-variant">Summit Rentals</td>
+<td class="px-6 py-5">Oct 20, 2023</td>
+<td class="px-6 py-5">Oct 22, 2023</td>
+<td class="px-6 py-5">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[11px] font-bold uppercase">Completed</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-surface-container-lowest hover:translate-x-1 transition-transform duration-200">
+<td class="px-6 py-5 font-bold text-primary">#RR-9110</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">911 GT3</span>
+<span class="text-xs text-on-surface-variant">Porsche</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-medium">Vikram Singh</td>
+<td class="px-6 py-5 text-on-surface-variant">Prestige Drive</td>
+<td class="px-6 py-5">Oct 30, 2023</td>
+<td class="px-6 py-5">Nov 02, 2023</td>
+<td class="px-6 py-5">
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-[11px] font-bold uppercase">Upcoming</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low/50 hover:translate-x-1 transition-transform duration-200">
+<td class="px-6 py-5 font-bold text-primary">#RR-8872</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">G-Wagon G63</span>
+<span class="text-xs text-on-surface-variant">Mercedes-Benz</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-medium">Priya Iyer</td>
+<td class="px-6 py-5 text-on-surface-variant">Elite Motors</td>
+<td class="px-6 py-5">Oct 18, 2023</td>
+<td class="px-6 py-5">Oct 25, 2023</td>
+<td class="px-6 py-5">
+<span class="bg-tertiary-container/10 text-on-tertiary-container px-3 py-1 rounded-full text-[11px] font-bold uppercase">Ongoing</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="text-on-surface-variant font-semibold text-sm hover:text-primary transition-colors flex items-center gap-2">
+                    View All Activity <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    // This dashboard page is demo-focused: we only have a few admin APIs today.
+    // Revenue is not available from backend yet, so we show a placeholder.
+    A.setText("statRevenuePlaceholder", "N/A");
+
+    (async function () {
+      try {
+        var users = await A.apiFetch("/users/getAllUsers", { method: "GET" });
+        A.setText("statTotalUsers", users && users.length != null ? String(users.length) : "—");
+      } catch (e) {
+        A.setText("statTotalUsers", "—");
+      }
+
+      try {
+        var page = await A.apiFetch("/api/admin/vehicles?page=0&size=1&status=UNDER_REVIEW", { method: "GET" });
+        var pending = page && page.totalElements != null ? String(page.totalElements) : "—";
+        A.setText("statPendingVehicles", pending);
+      } catch (e2) {
+        A.setText("statPendingVehicles", "—");
+      }
+    })();
+  })();
+</script>
+</html>

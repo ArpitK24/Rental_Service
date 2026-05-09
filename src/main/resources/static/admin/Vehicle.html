@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vehicles | RentRover Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#77574d",
+                      "outline-variant": "#dcc1b1",
+                      "error": "#ba1a1a",
+                      "surface": "#faf9f6",
+                      "primary-container": "#fa7025",
+                      "surface-variant": "#e3e2e0",
+                      "on-primary-fixed": "#351000",
+                      "tertiary-fixed": "#ffddb9",
+                      "inverse-primary": "#ffb595",
+                      "surface-container-highest": "#e3e2e0",
+                      "inverse-on-surface": "#f2f1ee",
+                      "secondary-fixed-dim": "#e7bdb1",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#a23f00",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#2f312f",
+                      "secondary-fixed": "#ffdbd0",
+                      "on-surface": "#1a1c1a",
+                      "tertiary-fixed-dim": "#ffb961",
+                      "surface-container": "#efeeeb",
+                      "primary-fixed": "#ffdbcd",
+                      "on-secondary-fixed": "#2c160e",
+                      "primary": "#a23f00",
+                      "on-primary-container": "#591f00",
+                      "surface-container-high": "#e9e8e5",
+                      "surface-dim": "#dbdad7",
+                      "primary-fixed-dim": "#ffb595",
+                      "on-tertiary-fixed": "#2b1700",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#faf9f6",
+                      "secondary-container": "#fed3c7",
+                      "on-tertiary-fixed-variant": "#663e00",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#f4f3f1",
+                      "tertiary-container": "#d78800",
+                      "on-surface-variant": "#564337",
+                      "outline": "#897365",
+                      "on-error-container": "#93000a",
+                      "background": "#faf9f6",
+                      "on-secondary-container": "#795950",
+                      "tertiary": "#865300",
+                      "on-secondary-fixed-variant": "#5d4037",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#1a1c1a",
+                      "on-tertiary-container": "#482b00",
+                      "on-primary-fixed-variant": "#7c2e00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Work Sans"],
+                      "label": ["Work Sans"]
+              }
+            },
+          }
+        }
+      </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #a23f00 0%, #fa7025 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#faf9f6] dark:bg-stone-950 flex justify-between items-center px-8 h-16 w-full max-w-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#a23f00] dark:text-[#fa7025]">Rent Rover</span>
+<nav class="hidden md:flex items-center space-x-6">
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#fa7025] transition-colors duration-200" href="Home.html">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#fa7025] transition-colors duration-200" href="Booking.html">Bookings</a>
+<a class="text-[#a23f00] dark:text-[#fa7025] border-b-2 border-[#a23f00] dark:border-[#fa7025] pb-1 font-bold" href="Vehicle.html">Vehicles</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#fa7025] transition-colors duration-200" href="User.html">Users</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#fa7025] transition-colors duration-200" href="Reports.html">Reports</a>
+</nav>
+</div>
+<div class="flex items-center space-x-6">
+<img alt="Admin profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="portrait of a professional male administrator in a clean office setting, soft daylight, minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9sYqTjUtLEanXYP3_atgUXjazVR1Nu1IksiG1iiZ6SPvhDpytn-j3JzViPJeRLRuYIbqzZmN_JS-s-2Kb8pvYcnAEwPdCP3SViAJ4ncY4wRuchredc88-AjGfg-MCdXXo-QvNxjK0HqR_foY0sRej2ZGjsz6w5cInm7_6kPcOqyH4JnPNVSdM2aeHj85onrJgDAlY-Os-Xf2QKCznRiNWDASXNTO7C6S4H9Bzg-SaHLRiA6SGdM4rKpb4q5tuh-us2lj91FyeRV7C"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-8 max-w-7xl mx-auto">
+<!-- Editorial Header Section -->
+<section class="mb-12">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface-variant mb-2">Fleet Inventory</h1>
+<p class="text-on-surface-variant/70 max-w-2xl text-lg">Manage your premium assets. Monitor status, availability, and pending approvals across the Nagpur regional hub.</p>
+</section>
+<!-- Search & Filter Bento Island -->
+<div class="bg-surface-container-low rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-4 items-center">
+<div class="relative flex-grow w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-md py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline/60" placeholder="Search Vehicle ID, License plate, Vehicle + Brand name..." type="text"/>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex items-center gap-2 bg-surface-container-lowest px-4 py-3 rounded-md text-sm font-medium text-on-surface-variant hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                    Filters
+                </button>
+<button class="flex items-center gap-2 bg-surface-container-lowest px-4 py-3 rounded-md text-sm font-medium text-on-surface-variant hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                    Export CSV
+                </button>
+</div>
+</div>
+<!-- Vehicles Table Canvas -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-on-surface-variant/60">Vehicle ID</th>
+<th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-on-surface-variant/60">Vehicle + Brand</th>
+<th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-on-surface-variant/60">License Number</th>
+<th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-on-surface-variant/60">Status</th>
+<th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-on-surface-variant/60">Location</th>
+<th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-on-surface-variant/60">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low" id="vehicleTbody">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-primary">#VEH-1024</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="sleek modern electric sedan in white, minimalist automotive photography, studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnO_b3MRsz_QN3yyI-yqIuwj6xaVNJo7_J6w0_P8LQr1o_oGKMASmKs3xyFcw4RW3fjrusfnf3es3SbD5bGgST0VLjz7oMdYWF00zYLX0Ld3IBJBiTEmP9FZy1rS6cnVmXrTZ7e2tuUgMZ-o_R58sj_LHRs3MPKlWR3TVuaDOLAfmH9vK7UJD05VSRTwyJsmYiV0MfBIvRgqaR5PB7NJgN8NX1nGpyGIgLHMOo7H80J09OgtsZYm4q5a6yprU3xNWcKS9_tRrqjw9B"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Tesla Model S</p>
+<p class="text-xs text-on-surface-variant/60">Electric • 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface-variant">MH-31-AZ-1234</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-tertiary-container text-on-tertiary-container">
+                                Available
+                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Nagpur</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary rounded-md hover:bg-primary hover:text-white transition-all">Approve</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-error/10 text-error rounded-md hover:bg-error hover:text-white transition-all">Cancel</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-primary">#VEH-1025</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="luxury suv in metallic grey, parked in front of modern architecture, high contrast photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK8ZyD5SJwLcvEo1KbFCXoFBWG5XR-4C4Ae5tE6ZqZ9-QdgUez2JBKVW2n4W8FAMlsVTU7PdDIjl3l8DjeMCCxNRNmjwzckCOefVKP4wVoWNkLudsY30JygZA37yFoisaag8bBfd1iwuteIdmLDvERQd-vUqnwh9pjOQ7sc8gmo-QhjXVL1fAWjK6j9ha7kq-vO5_U4G6EYmYi_S9IcsbHI_NaJM0iNJneI5G19FzVzcEWMUdlUK_R3iME-u3UIomMsG3kucnORtJF"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Range Rover Velar</p>
+<p class="text-xs text-on-surface-variant/60">Hybrid • 2022</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface-variant">MH-31-AZ-5678</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container">
+                                Rented
+                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Nagpur</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary rounded-md hover:bg-primary hover:text-white transition-all">Approve</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-error/10 text-error rounded-md hover:bg-error hover:text-white transition-all">Cancel</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-primary">#VEH-1026</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="premium blue sedan in motion, soft blur, elegant automotive design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzrtA3PGj88L9XnqpQhxti8GJI3PhuOJbazQw_qXz5qOz38c2wZScCj3l8_OkpJQDkx4s52BKia-SDcYxbV4QWhogh9yOQyPL6I4kvXMzD3ujM5oKfwclimbnAfjRUYozKrQGD4zaqbfd0a3ZwXO1N6dM3QgXLjqes7-xFGUf3gSTLTFbRP8-Dx5Fzg12GjFw31mqgOJHNLzwAGmBDTKx0p_7A7YhpJokpybBw7SMisWvcZTN9c19mlEnqoBfx2abyaX9pm7k2UdGv"/>
+<div>
+<p class="text-sm font-bold text-on-surface">BMW 5 Series</p>
+<p class="text-xs text-on-surface-variant/60">Petrol • 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface-variant">MH-31-AZ-9900</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-error-container text-on-error-container">
+                                Maintenance
+                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Nagpur</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary rounded-md hover:bg-primary hover:text-white transition-all">Approve</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-error/10 text-error rounded-md hover:bg-error hover:text-white transition-all">Cancel</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-primary">#VEH-1027</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="classic white luxury car interior, focus on steering wheel and dashboard, warm evening light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVHWyfYgb3Std-4AR_m8We5l1rDvuGI2VgL7zaubFCHaT2LCpJRvwrb32msLJ49MXT1wEPnGY3DppaZStYAh2vO2yFM5scp6Lvs0JEn2Tl5xV9n6moWvzAox5Wr7HvAjEIDFgA6RD-5ezH-ajdZp3ch_tNR6W5u6-pe406mLBgzMwSbw6FtkPYos3KWqQsZMSRxVbqY6ajOLq4w7cV4T0wOyqANJVRXOLAqwMRkB0ZX0B4ZrLW0-AUkw-4PLDpBu5f1BG1iN6L2ku-"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Mercedes-Benz E-Class</p>
+<p class="text-xs text-on-surface-variant/60">Diesel • 2021</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface-variant">MH-31-AZ-4422</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-tertiary-container text-on-tertiary-container">
+                                Available
+                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Nagpur</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary rounded-md hover:bg-primary hover:text-white transition-all">Approve</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-error/10 text-error rounded-md hover:bg-error hover:text-white transition-all">Cancel</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Default State - Pending Example) -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-primary">#VEH-1028</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="compact grey hatchback, urban street setting, soft morning fog, high-end commercial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh_eg3ov1FjSFJupdQKqer_1QsUpG25SxsOYtkBYbdsY4lA8SylGXuKuwj1JZ9c3CAjPAxRBqW_q8dmXbArHkRlRMKM4s6v2GyjcSg3ee6-QUoyFZhSfV5tExpoCwWb0C1oS8vA3QxMB4pXyEAIlsCks0uRHxC37t76AdQ_O2aL0l88N6mSfVjRO1GSM7TYOj6XjSKbyieIX-H8j25QwDMYqkry1tNTPpsJVdj-Ikb6KYlvnxomR_vcBCyr1fjdXDvAEEDzpwoQK4m"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Audi A3</p>
+<p class="text-xs text-on-surface-variant/60">Petrol • 2022</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface-variant">MH-31-AZ-8811</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-surface-container-high text-on-surface-variant">
+                                Pending Action
+                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Nagpur</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-100">
+<button class="px-3 py-1.5 text-xs font-bold bg-primary text-white rounded-md hover:opacity-90 shadow-sm transition-all">Approve</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-surface-container-high text-on-surface-variant rounded-md hover:bg-error/10 hover:text-error transition-all">Cancel</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Controls -->
+<div class="bg-surface-container-low px-6 py-4 flex items-center justify-between">
+<p class="text-xs font-medium text-on-surface-variant/60">Showing 1-5 of 124 vehicles</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-white font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-bright transition-all text-xs font-medium">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-bright transition-all text-xs font-medium">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Stats Island (Premium Detail) -->
+<div class="fixed bottom-8 right-8 bg-surface-container-lowest/80 backdrop-blur-xl p-4 rounded-xl shadow-2xl border border-outline-variant/20 flex gap-6 items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Total Fleet</p>
+<p class="text-xl font-extrabold text-on-surface">1,240</p>
+</div>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Active</p>
+<p class="text-xl font-extrabold text-on-surface">892</p>
+</div>
+</div>
+</div>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    var tbody = document.getElementById("vehicleTbody");
+    if (!tbody) return;
+
+    function badge(status) {
+      var s = (status || "").toString();
+      var cls = "bg-surface-container-high text-on-surface-variant";
+      if (s === "UNDER_REVIEW") cls = "bg-tertiary-fixed text-tertiary";
+      if (s === "ACTIVE") cls = "bg-tertiary-container text-on-tertiary-container";
+      if (s === "INACTIVE") cls = "bg-surface-container-high text-on-surface-variant";
+      if (s === "REJECTED") cls = "bg-error/10 text-error";
+      return '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ' + cls + '">' + s.replace(/_/g, " ") + "</span>";
+    }
+
+    function escapeHtml(v) {
+      return String(v == null ? "" : v)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    async function loadVehicles() {
+      tbody.innerHTML = '<tr><td class="px-6 py-6 text-sm text-on-surface-variant" colspan="6">Loading vehicles...</td></tr>';
+      try {
+        var page = await A.apiFetch("/api/admin/vehicles?page=0&size=20&status=UNDER_REVIEW", { method: "GET" });
+        var items = page && page.content ? page.content : [];
+        if (!items.length) {
+          tbody.innerHTML = '<tr><td class="px-6 py-6 text-sm text-on-surface-variant" colspan="6">No vehicles pending review.</td></tr>';
+          return;
+        }
+
+        var rows = "";
+        for (var i = 0; i < items.length; i++) {
+          var v = items[i] || {};
+          rows += '<tr class="hover:bg-surface-bright transition-colors group">' +
+            '<td class="px-6 py-5 text-sm font-medium text-primary">' + escapeHtml(v.id || "") + "</td>" +
+            '<td class="px-6 py-5">' +
+              '<div class="flex items-center gap-3">' +
+                '<div>' +
+                  '<p class="text-sm font-bold text-on-surface">' + escapeHtml(v.name || "(no name)") + "</p>" +
+                  '<p class="text-xs text-on-surface-variant/60">Owner: ' + escapeHtml(v.ownerName || "") + "</p>" +
+                "</div>" +
+              "</div>" +
+            "</td>" +
+            '<td class="px-6 py-5 text-sm font-medium text-on-surface-variant">' + escapeHtml(v.registrationNumber || "-") + "</td>" +
+            '<td class="px-6 py-5">' + badge(v.status) + "</td>" +
+            '<td class="px-6 py-5 text-sm text-on-surface-variant">—</td>' +
+            '<td class="px-6 py-5 text-right">' +
+              '<div class="flex justify-end gap-2 opacity-100">' +
+                '<button data-action="approve" data-id="' + escapeHtml(v.id || "") + '" class="px-3 py-1.5 text-xs font-bold bg-primary text-white rounded-md hover:opacity-90 shadow-sm transition-all">Approve</button>' +
+                '<button data-action="reject" data-id="' + escapeHtml(v.id || "") + '" class="px-3 py-1.5 text-xs font-bold bg-surface-container-high text-on-surface-variant rounded-md hover:bg-error/10 hover:text-error transition-all">Reject</button>' +
+              "</div>" +
+            "</td>" +
+          "</tr>";
+        }
+        tbody.innerHTML = rows;
+      } catch (e) {
+        tbody.innerHTML = '<tr><td class="px-6 py-6 text-sm text-error" colspan="6">Failed to load vehicles: ' + escapeHtml(e.message || "Error") + "</td></tr>";
+      }
+    }
+
+    tbody.addEventListener("click", async function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest("button[data-action]") : null;
+      if (!btn) return;
+      var id = btn.getAttribute("data-id");
+      var action = btn.getAttribute("data-action");
+      if (!id) return;
+
+      btn.disabled = true;
+      var oldText = btn.textContent;
+      btn.textContent = "Working...";
+      try {
+        if (action === "approve") {
+          await A.apiFetch("/api/admin/vehicles/" + encodeURIComponent(id) + "/status", {
+            method: "PATCH",
+            body: JSON.stringify({ status: "ACTIVE", reason: "Approved by admin" })
+          });
+        } else if (action === "reject") {
+          var reason = prompt("Rejection reason (optional):", "Rejected by admin");
+          await A.apiFetch("/api/admin/vehicles/" + encodeURIComponent(id) + "/status", {
+            method: "PATCH",
+            body: JSON.stringify({ status: "REJECTED", reason: reason || "Rejected by admin" })
+          });
+        }
+        await loadVehicles();
+      } catch (err) {
+        alert(err.message || "Action failed");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = oldText;
+      }
+    });
+
+    loadVehicles();
+  })();
+</script>
+</html>

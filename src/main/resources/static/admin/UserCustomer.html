@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Customer | RentRover Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e3e2e0",
+                    "on-surface": "#1a1c1a",
+                    "primary-fixed": "#ffdbcd",
+                    "tertiary-container": "#d78800",
+                    "on-tertiary-container": "#482b00",
+                    "error-container": "#ffdad6",
+                    "outline": "#897365",
+                    "on-secondary-fixed-variant": "#5d4037",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffddb9",
+                    "on-tertiary-fixed": "#2b1700",
+                    "inverse-surface": "#2f312f",
+                    "on-primary-fixed": "#351000",
+                    "on-secondary-fixed": "#2c160e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#795950",
+                    "surface-variant": "#e3e2e0",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#faf9f6",
+                    "secondary-fixed": "#ffdbd0",
+                    "primary-container": "#fa7025",
+                    "on-background": "#1a1c1a",
+                    "inverse-on-surface": "#f2f1ee",
+                    "outline-variant": "#dcc1b1",
+                    "surface-container-high": "#e9e8e5",
+                    "primary-fixed-dim": "#ffb595",
+                    "surface-container-low": "#f4f3f1",
+                    "inverse-primary": "#ffb595",
+                    "tertiary": "#865300",
+                    "secondary": "#77574d",
+                    "on-primary-container": "#591f00",
+                    "background": "#faf9f6",
+                    "surface-container": "#efeeeb",
+                    "secondary-container": "#fed3c7",
+                    "surface-dim": "#dbdad7",
+                    "tertiary-fixed-dim": "#ffb961",
+                    "surface-tint": "#a23f00",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#e7bdb1",
+                    "primary": "#a23f00",
+                    "on-primary-fixed-variant": "#7c2e00",
+                    "error": "#ba1a1a",
+                    "surface": "#faf9f6",
+                    "on-tertiary-fixed-variant": "#663e00",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#564337"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Work Sans"],
+                    "label": ["Work Sans"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 12px 40px rgba(86, 67, 55, 0.08);
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #a23f00 0%, #fa7025 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar (Shared Component) -->
+<header class="w-full sticky top-0 z-50 bg-[#faf9f6] dark:bg-stone-950">
+<nav class="flex justify-between items-center px-8 h-20 w-full max-w-screen-2xl mx-auto font-['Manrope'] font-bold tracking-tight">
+<div class="text-2xl font-bold text-[#a23f00] dark:text-[#fa7025]">RentRover</div>
+<div class="hidden md:flex items-center space-gap-8 gap-x-8">
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] hover:bg-[#f4f3f1] dark:hover:bg-stone-800 transition-colors duration-200 px-3 py-2 rounded-lg" href="Home.html">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] hover:bg-[#f4f3f1] dark:hover:bg-stone-800 transition-colors duration-200 px-3 py-2 rounded-lg" href="Booking.html">Bookings</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] hover:bg-[#f4f3f1] dark:hover:bg-stone-800 transition-colors duration-200 px-3 py-2 rounded-lg" href="Vehicle.html">Vehicles</a>
+<a class="text-[#a23f00] dark:text-[#fa7025] border-b-2 border-[#a23f00] pb-1" href="User.html">Users</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] hover:bg-[#f4f3f1] dark:hover:bg-stone-800 transition-colors duration-200 px-3 py-2 rounded-lg" href="Reports.html">Reports</a>
+</div>
+<div class="flex items-center gap-4">
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover outline outline-2 outline-outline-variant outline-offset-2" data-alt="professional headshot of a mature male executive in a neutral grey suit with soft studio lighting and blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtGYgafkuP9O3lvZECRuvKrs29_Ufky68eunaTPTsdlSjSwK5h3rzMy78CFSUrcb6AKkcn2hV61SspXx8iBWErMZ_sJBFxhDc9jbasH0bMKwigGGiuDHIbpaiGCQU8pThZstK0F2AmF1y1I3DUTeh-2Zkw_srYoUghy4nteUusB3ymkNBHE2EJ1HAdoEbtZ15r_E4s5tpvAi7ZfrGooNPEt4vJUv2AMwvfNS0cPQy6Usv5Zb4hKWwV39s7TZhVIB38Ma_790yuIlin"/>
+</div>
+</nav>
+</header>
+<main class="max-w-screen-xl mx-auto px-8 py-10">
+<!-- Back Link Navigation -->
+<div class="mb-8">
+<a class="inline-flex items-center text-on-surface-variant hover:text-primary transition-colors group" href="User.html">
+<span class="material-symbols-outlined mr-2 transition-transform group-hover:-translate-x-1" data-icon="arrow_back">arrow_back</span>
+<span class="font-medium tracking-tight font-headline">Back to Users</span>
+</a>
+</div>
+<!-- Hero Section: User Identity -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-start">
+<!-- Left: Profile Summary Bento -->
+<div class="lg:col-span-5 space-y-6">
+<div class="bg-surface-container-lowest p-8 rounded-xl editorial-shadow relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 bg-primary rounded-bl-full"></div>
+<div class="flex items-center gap-6 mb-8">
+<img alt="User Profile" class="w-24 h-24 rounded-xl object-cover" data-alt="portrait of a confident woman with curly hair wearing a soft linen shirt in warm afternoon sunlight with gentle bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT5N7YsNWnltyf1ysIKB7rmrZvC02J_UY60fcByRiIp3et8o28Xv9pvN7v2xm9JRIfOoqTC5uMqlgVxKsKnyqExkWs4d1NRnc6H3EEu9fKEjCCGjiANzG1Gz-3RW_n8pKw_tQ3XNRy9JZVJXSj6T-35SZCnRaa1nY3QBsTdyNkmU6GRYxgmwdDLVDKtiWjHm97XS6703FyeB5v9-72gRrPbUuF0PCdjRuNBJxNzgn28kTC7s-61hlSsWPv-ZdP8C0BbSIgFtXKUwmt"/>
+<div>
+<h1 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-1">Ananya Sharma</h1>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-6 gap-x-4">
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">User ID</p>
+<p class="font-headline font-bold text-on-surface">LR-99284-AS</p>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Member Since</p>
+<p class="font-headline font-bold text-on-surface">14 Oct, 2021</p>
+</div>
+<div class="col-span-2">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Email ID</p>
+<p class="font-headline font-bold text-on-surface">ananya.sharma@example.com</p>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Mobile Number</p>
+<p class="font-headline font-bold text-on-surface">+91 98765 43210</p>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Driving License</p>
+<p class="font-headline font-bold text-on-surface text-primary">Verified</p>
+</div>
+<div class="col-span-2">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Address</p>
+<p class="font-headline font-bold text-on-surface leading-relaxed">Skyline Towers, Flat 402, Jubilee Hills, Hyderabad - 500033</p>
+</div>
+</div>
+<div class="mt-10 flex gap-4">
+<button class="px-6 py-3 rounded-md font-label text-xs font-bold uppercase tracking-widest text-on-surface outline outline-1 outline-outline-variant/30 hover:bg-surface-container-low transition-colors">Actions</button>
+</div>
+</div>
+</div>
+<!-- Right: Statistics / Context -->
+<div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-tertiary text-4xl mb-4" data-weight="fill">monetization_on</span>
+<h3 class="font-headline text-lg font-bold text-on-surface">Lifetime Value</h3>
+</div>
+<div class="mt-8">
+<p class="text-4xl font-extrabold text-primary tracking-tighter">₹2,84,500</p>
+<p class="text-xs text-on-surface-variant mt-1 font-medium italic">Across 14 successful rentals</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary text-4xl mb-4" data-weight="fill">verified_user</span>
+<h3 class="font-headline text-lg font-bold text-on-surface">Trust Score</h3>
+</div>
+<div class="mt-8">
+<p class="text-4xl font-extrabold text-on-surface tracking-tighter">98<span class="text-xl">/100</span></p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full w-[98%]"></div>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface-container-highest/30 p-8 rounded-xl flex items-center gap-6">
+<div class="bg-surface-container-lowest p-4 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">chat_bubble</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-0.5">Internal Curator Note</p>
+<p class="font-body text-on-surface text-sm italic">"Customer prefers white luxury sedans and always returns vehicles with full tank fuel. High-priority VIP."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Rental History Section -->
+<section class="mt-20">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">Rental History</h2>
+<p class="text-on-surface-variant mt-2 font-medium">Detailed activity log of vehicle interactions.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-lowest px-4 py-2 rounded-md font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant outline outline-1 outline-outline-variant/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                    </button>
+<button class="bg-surface-container-lowest px-4 py-2 rounded-md font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant outline outline-1 outline-outline-variant/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> Export PDF
+                    </button>
+</div>
+</div>
+<!-- Custom Table -->
+<div class="bg-surface-container-lowest rounded-xl editorial-shadow overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Booking ID</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Vehicle &amp; Brand</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Start Date</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">End Date</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="group hover:bg-surface-bright transition-colors">
+<td class="px-8 py-6">
+<span class="font-headline font-bold text-on-surface">BK-8821</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Mercedes-Benz S-Class</p>
+<p class="text-xs text-on-surface-variant">Luxury Sedan</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface font-medium">20 Mar, 2024</td>
+<td class="px-8 py-6 text-on-surface font-medium">24 Mar, 2024</td>
+<td class="px-8 py-6">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Ongoing</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary material-symbols-outlined hover:scale-110 transition-transform">visibility</button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright transition-colors">
+<td class="px-8 py-6">
+<span class="font-headline font-bold text-on-surface">BK-8412</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">BMW X7 M50i</p>
+<p class="text-xs text-on-surface-variant">Luxury SUV</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface font-medium">01 Feb, 2024</td>
+<td class="px-8 py-6 text-on-surface font-medium">05 Feb, 2024</td>
+<td class="px-8 py-6">
+<span class="bg-tertiary-container/20 text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Completed</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary material-symbols-outlined hover:scale-110 transition-transform">visibility</button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright transition-colors">
+<td class="px-8 py-6">
+<span class="font-headline font-bold text-on-surface">BK-8300</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Audi A8 L</p>
+<p class="text-xs text-on-surface-variant">Prestige Sedan</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface font-medium">12 Jan, 2024</td>
+<td class="px-8 py-6 text-on-surface font-medium">15 Jan, 2024</td>
+<td class="px-8 py-6">
+<span class="bg-tertiary-container/20 text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Completed</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary material-symbols-outlined hover:scale-110 transition-transform">visibility</button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright transition-colors">
+<td class="px-8 py-6">
+<span class="font-headline font-bold text-on-surface">BK-7992</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Jaguar F-PACE</p>
+<p class="text-xs text-on-surface-variant">Sport SUV</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface font-medium">15 Dec, 2023</td>
+<td class="px-8 py-6 text-on-surface font-medium">18 Dec, 2023</td>
+<td class="px-8 py-6">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Cancelled</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary material-symbols-outlined hover:scale-110 transition-transform">visibility</button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright transition-colors">
+<td class="px-8 py-6">
+<span class="font-headline font-bold text-on-surface">BK-9104</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Range Rover Velar</p>
+<p class="text-xs text-on-surface-variant">Luxury SUV</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface font-medium">04 Apr, 2024</td>
+<td class="px-8 py-6 text-on-surface font-medium">07 Apr, 2024</td>
+<td class="px-8 py-6">
+<span class="bg-primary-fixed/30 text-on-primary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Upcoming</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary material-symbols-outlined hover:scale-110 transition-transform">visibility</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="bg-surface-container-low px-8 py-4 flex justify-between items-center">
+<p class="text-xs font-medium text-on-surface-variant">Showing 5 of 14 bookings</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-surface-container-lowest outline outline-1 outline-outline-variant/20 material-symbols-outlined text-sm">chevron_left</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-surface-container-lowest outline outline-1 outline-outline-variant/20 material-symbols-outlined text-sm">chevron_right</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB Suppression (Hiding FAB as per requirements for detail screens) -->
+<footer class="mt-20 border-t border-outline-variant/10 py-12 px-8 max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start">
+<p class="font-headline font-extrabold text-primary text-lg">RentRover</p>
+<p class="text-on-surface-variant text-xs mt-1">© 2026 Operational Intelligence Panel. All rights reserved.</p>
+</div>
+</footer>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    function escapeHtml(v) {
+      return String(v == null ? "" : v)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getParam(name) {
+      try {
+        var u = new URL(window.location.href);
+        return u.searchParams.get(name);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    var userId = getParam("userId");
+    var note = document.createElement("div");
+    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
+    note.innerHTML =
+      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant" id="customerLivePanel">' +
+      '<span class="font-bold text-on-surface">Live Data:</span> loading...' +
+      "</div>";
+    document.body.insertBefore(note, document.body.firstChild);
+
+    (async function () {
+      var el = document.getElementById("customerLivePanel");
+      if (!el) return;
+      if (!userId) {
+        el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> missing `userId` in URL.';
+        return;
+      }
+      try {
+        var users = await A.apiFetch("/users/getAllUsers", { method: "GET" });
+        var found = null;
+        for (var i = 0; i < (users || []).length; i++) {
+          if (users[i] && users[i].id === userId) { found = users[i]; break; }
+        }
+        if (!found) {
+          el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> user not found.';
+          return;
+        }
+        el.innerHTML =
+          '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">' +
+          '<div><span class="font-bold text-on-surface">Name:</span> ' + escapeHtml(found.name || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">Mobile:</span> ' + escapeHtml(found.mobile || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">Email:</span> ' + escapeHtml(found.email || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">City:</span> ' + escapeHtml(found.city || "-") + "</div>" +
+          '<div><span class="font-bold text-on-surface">Role:</span> ' + escapeHtml(found.role || "-") + "</div>" +
+          "</div>";
+      } catch (err) {
+        el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> failed to load: ' + escapeHtml(err.message || "Error");
+      }
+    })();
+  })();
+</script>
+</html>

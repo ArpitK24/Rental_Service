@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Users | RentRover Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e3e2e0",
+                        "on-surface": "#1a1c1a",
+                        "primary-fixed": "#ffdbcd",
+                        "tertiary-container": "#d78800",
+                        "on-tertiary-container": "#482b00",
+                        "error-container": "#ffdad6",
+                        "outline": "#897365",
+                        "on-secondary-fixed-variant": "#5d4037",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-tertiary-fixed": "#2b1700",
+                        "inverse-surface": "#2f312f",
+                        "on-primary-fixed": "#351000",
+                        "on-secondary-fixed": "#2c160e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#795950",
+                        "surface-variant": "#e3e2e0",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#faf9f6",
+                        "secondary-fixed": "#ffdbd0",
+                        "primary-container": "#fa7025",
+                        "on-background": "#1a1c1a",
+                        "inverse-on-surface": "#f2f1ee",
+                        "outline-variant": "#dcc1b1",
+                        "surface-container-high": "#e9e8e5",
+                        "primary-fixed-dim": "#ffb595",
+                        "surface-container-low": "#f4f3f1",
+                        "inverse-primary": "#ffb595",
+                        "tertiary": "#865300",
+                        "secondary": "#77574d",
+                        "on-primary-container": "#591f00",
+                        "background": "#faf9f6",
+                        "surface-container": "#efeeeb",
+                        "secondary-container": "#fed3c7",
+                        "surface-dim": "#dbdad7",
+                        "tertiary-fixed-dim": "#ffb961",
+                        "surface-tint": "#a23f00",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#e7bdb1",
+                        "primary": "#a23f00",
+                        "on-primary-fixed-variant": "#7c2e00",
+                        "error": "#ba1a1a",
+                        "surface": "#faf9f6",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#564337"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar Component -->
+<header class="w-full sticky top-0 z-50 bg-[#faf9f6] dark:bg-stone-950 bg-[#f4f3f1] dark:bg-stone-900 shadow-none">
+<div class="flex justify-between items-center px-8 h-20 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-bold text-[#a23f00] dark:text-[#fa7025] font-['Manrope'] tracking-tight">RentRover</span>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] tracking-tight transition-colors duration-200" href="Home.html">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] tracking-tight transition-colors duration-200" href="Booking.html">Bookings</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] tracking-tight transition-colors duration-200" href="Vehicle.html">Vehicles</a>
+<a class="text-[#a23f00] dark:text-[#fa7025] border-b-2 border-[#a23f00] pb-1 font-['Manrope'] font-bold tracking-tight" href="User.html">Users</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a23f00] font-['Manrope'] tracking-tight transition-colors duration-200" href="Reports.html">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary/10" data-alt="professional headshot of a confident male executive in a neutral grey studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk6izcwZFhpQnqJS-3hGLQbAutNOUUhU5PO_DmQVXWs9or-pT3ACUb1D_ECk6mTOgxlWBh6wP-LnaWpTrxFLhBDFv11ydt5gtia19ETEL2r4-UztfuxkoLHI5PGc_CAOmH8WkjEyA-5wJXA6vJ_buMt1QAPt_6iN9wet64ucxMRt7kXeB4JqsMqc3ivEIr6IryU1r8sNKBjjUInj24M1nZq9usA61G0tOOSD1sZDDtQFHnbLL9VvAXFW2gl9ZJy-IMIVfQ9KHyaJzC"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-8 py-10">
+<!-- Page Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h1 class="text-4xl font-extrabold text-on-surface font-headline tracking-tight mb-2">Users</h1>
+<p class="text-on-surface-variant font-body">Manage platform access, roles, and administrative permissions.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full md:w-80 pl-12 pr-4 py-3 bg-surface-container-lowest rounded-xl border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary shadow-sm transition-all font-body text-sm" placeholder="Search by name or email..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Filters / Bento Layout Intro -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant opacity-60">Total Users</span>
+<div class="flex items-baseline gap-2 mt-4">
+<span class="text-3xl font-headline font-extrabold text-primary">1,284</span>
+<span class="text-xs font-body text-tertiary-container font-semibold">+12% this month</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant opacity-60">Active Admins</span>
+<div class="flex items-baseline gap-2 mt-4">
+<span class="text-3xl font-headline font-extrabold text-on-surface">24</span>
+<span class="text-xs font-body text-on-surface-variant">Full Control</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant opacity-60">Recent Signups</span>
+<div class="flex items-baseline gap-2 mt-4">
+<span class="text-3xl font-headline font-extrabold text-on-surface">156</span>
+<span class="text-xs font-body text-on-surface-variant">Last 7 days</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant opacity-60">Avg. Engagement</span>
+<div class="flex items-baseline gap-2 mt-4">
+<span class="text-3xl font-headline font-extrabold text-on-surface">82%</span>
+<span class="text-xs font-body text-on-surface-variant">Daily login rate</span>
+</div>
+</div>
+</div>
+<!-- Users Table -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm ring-1 ring-outline-variant/10">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container-low border-none">
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Name</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Email ID</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Role</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container" id="userTbody">
+<!-- User Row 1 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-headline font-bold">EM</div>
+<span class="font-headline font-semibold text-on-surface">Elena Mistral</span>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface-variant font-body text-sm">elena.mistral@luxerental.com</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold bg-secondary-container text-on-secondary-container">Admin</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 text-primary font-headline font-bold text-xs hover:bg-primary-fixed/30 rounded-lg transition-all">
+                                    VIEW
+                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- User Row 2 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="portrait of a young man with glasses and a friendly smile, outdoor lighting with greenery background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0v9pg9RO48ma2c6SfzTpM4YgREMOPQag0nugfy4o0NreSQFm6-DoIIHPfgrToZ7wDZh0By6l_9uz-Lrlceo-2sLlqxBPNLjPHSAEf9X-A2vaLPIIHe1ez6mwsvJwtYGNFQVDxDiVNsJUwEyTape8ctnE9KYm-SiyemXg-K3fZy4Wsxo0OtpP6scCx0-PHWWV-W_dreXvdFwL_S36Ic_-PDrMShYs3_XQONNKsbz34s2tADFM1lktazLEwlbN7jOFperj42gvPu2zp"/>
+<span class="font-headline font-semibold text-on-surface">Marcus Thorne</span>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface-variant font-body text-sm">marcus.thorne@gmail.com</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold bg-tertiary-container text-on-tertiary-container">Customer</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 text-primary font-headline font-bold text-xs hover:bg-primary-fixed/30 rounded-lg transition-all" >
+                                    VIEW
+                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- User Row 3 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-headline font-bold">SV</div>
+<span class="font-headline font-semibold text-on-surface">Sienna Vance</span>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface-variant font-body text-sm">vance.ops@fleetpartners.net</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold bg-outline-variant/20 text-on-surface-variant">Vendor</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 text-primary font-headline font-bold text-xs hover:bg-primary-fixed/30 rounded-lg transition-all">
+                                    VIEW
+                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- User Row 4 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="headshot of a woman with curly hair looking directly at camera, soft window light, professional and minimalist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClxNHtECh15XHte0LRjLtt6zYpB5G4SoEZThVUzoyHBvT9DQbzpJa_JUYzFlxBj1Ky7M9qJG5pbv5jrpx_fIBhmAT7UsZuA4tumJuYGkBEyE8-WONlht48AJE9JEzQ80HbuIrW9LXNeJfdJ65v8ZmnBqvJ_nRBnM9AvrKr7EzQE9tdOaTulB9TAuy619z1xroAqBLJ4BhX2oSvjPUXFZMViJ-HMh2OR2peCEfr-UGG456B9nrZ2fGT924D91MTXNwOn_GgbgkKM3_v"/>
+<span class="font-headline font-semibold text-on-surface">Julianne Moore</span>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface-variant font-body text-sm">j.moore@designstudio.io</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold bg-tertiary-container text-on-tertiary-container">Customer</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 text-primary font-headline font-bold text-xs hover:bg-primary-fixed/30 rounded-lg transition-all">
+                                    VIEW
+                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- User Row 5 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-headline font-bold">AK</div>
+<span class="font-headline font-semibold text-on-surface">Adrian Knight</span>
+</div>
+</td>
+<td class="px-8 py-6 text-on-surface-variant font-body text-sm">aknight@luxerental.com</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold bg-secondary-container text-on-secondary-container">Admin</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 text-primary font-headline font-bold text-xs hover:bg-primary-fixed/30 rounded-lg transition-all">
+                                    VIEW
+                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between px-8 py-5 bg-surface-container-low border-t border-surface-container">
+<span class="text-xs font-body text-on-surface-variant">Showing 5 of 1,284 users</span>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-headline font-bold text-xs">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container font-headline font-bold text-xs">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container font-headline font-bold text-xs">3</button>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - suppressed on list details, shown here for quick creation -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center md:hidden active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    var tbody = document.getElementById("userTbody");
+    if (!tbody) return;
+
+    function escapeHtml(v) {
+      return String(v == null ? "" : v)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function initials(nameOrMobile) {
+      var s = (nameOrMobile || "").toString().trim();
+      if (!s) return "U";
+      var parts = s.split(/\\s+/);
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+    }
+
+    function roleBadge(role) {
+      var r = (role || "").toString().toUpperCase();
+      var cls = "bg-outline-variant/20 text-on-surface-variant";
+      if (r === "CUSTOMER") cls = "bg-tertiary-container text-on-tertiary-container";
+      if (r === "VENDOR") cls = "bg-outline-variant/20 text-on-surface-variant";
+      if (r === "ADMIN") cls = "bg-secondary-container text-on-secondary-container";
+      return '<span class="px-3 py-1 rounded-full text-[11px] font-bold ' + cls + '">' + escapeHtml(r) + "</span>";
+    }
+
+    function viewLink(user) {
+      var r = (user.role || "").toString().toUpperCase();
+      var id = user.id || "";
+      if (!id) return "#";
+      if (r === "CUSTOMER") return "UserCustomer.html?userId=" + encodeURIComponent(id);
+      if (r === "VENDOR") return "UserVendor.html?userId=" + encodeURIComponent(id);
+      return "Profile.html";
+    }
+
+    async function loadUsers() {
+      tbody.innerHTML = '<tr><td class="px-8 py-6 text-sm text-on-surface-variant" colspan="4">Loading users...</td></tr>';
+      try {
+        var users = await A.apiFetch("/users/getAllUsers", { method: "GET" });
+        if (!users || !users.length) {
+          tbody.innerHTML = '<tr><td class="px-8 py-6 text-sm text-on-surface-variant" colspan="4">No users found.</td></tr>';
+          return;
+        }
+
+        var rows = "";
+        for (var i = 0; i < users.length; i++) {
+          var u = users[i] || {};
+          var name = u.name || u.mobile || "Unknown";
+          var email = u.email || "-";
+          rows += '<tr class="hover:bg-surface-bright transition-colors group">' +
+            '<td class="px-8 py-6">' +
+              '<div class="flex items-center gap-4">' +
+                '<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-headline font-bold">' + escapeHtml(initials(name)) + "</div>" +
+                '<span class="font-headline font-semibold text-on-surface">' + escapeHtml(name) + "</span>" +
+              "</div>" +
+            "</td>" +
+            '<td class="px-8 py-6 text-on-surface-variant font-body text-sm">' + escapeHtml(email) + "</td>" +
+            '<td class="px-8 py-6">' + roleBadge(u.role) + "</td>" +
+            '<td class="px-8 py-6 text-right">' +
+              '<a class="inline-flex items-center gap-2 px-4 py-2 text-primary font-headline font-bold text-xs hover:bg-primary-fixed/30 rounded-lg transition-all" href="' + escapeHtml(viewLink(u)) + '">' +
+                "VIEW" +
+                '<span class="material-symbols-outlined text-base">arrow_forward</span>' +
+              "</a>" +
+            "</td>" +
+          "</tr>";
+        }
+        tbody.innerHTML = rows;
+      } catch (e) {
+        tbody.innerHTML = '<tr><td class="px-8 py-6 text-sm text-error" colspan="4">Failed to load users: ' + escapeHtml(e.message || "Error") + "</td></tr>";
+      }
+    }
+
+    loadUsers();
+  })();
+</script>
+</html>

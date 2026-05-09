@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile | RentRover Admin</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f4f3f1",
+                    "surface-bright": "#faf9f6",
+                    "secondary-container": "#fed3c7",
+                    "on-tertiary-fixed-variant": "#663e00",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "outline": "#897365",
+                    "background": "#faf9f6",
+                    "tertiary-container": "#d78800",
+                    "on-surface-variant": "#564337",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#795950",
+                    "on-secondary-fixed-variant": "#5d4037",
+                    "tertiary": "#865300",
+                    "on-primary-fixed-variant": "#7c2e00",
+                    "on-background": "#1a1c1a",
+                    "on-tertiary-container": "#482b00",
+                    "primary-container": "#fa7025",
+                    "tertiary-fixed": "#ffddb9",
+                    "inverse-primary": "#ffb595",
+                    "surface-variant": "#e3e2e0",
+                    "on-primary-fixed": "#351000",
+                    "error": "#ba1a1a",
+                    "secondary": "#77574d",
+                    "outline-variant": "#dcc1b1",
+                    "surface": "#faf9f6",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#e7bdb1",
+                    "surface-tint": "#a23f00",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2f312f",
+                    "surface-container-highest": "#e3e2e0",
+                    "inverse-on-surface": "#f2f1ee",
+                    "tertiary-fixed-dim": "#ffb961",
+                    "surface-container": "#efeeeb",
+                    "on-surface": "#1a1c1a",
+                    "secondary-fixed": "#ffdbd0",
+                    "surface-dim": "#dbdad7",
+                    "surface-container-high": "#e9e8e5",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#ffb595",
+                    "on-tertiary-fixed": "#2b1700",
+                    "on-secondary-fixed": "#2c160e",
+                    "primary-fixed": "#ffdbcd",
+                    "primary": "#a23f00",
+                    "on-primary-container": "#591f00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Work Sans"],
+                    "label": ["Work Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        background: rgba(250, 249, 246, 0.8);
+        backdrop-filter: blur(12px);
+      }
+      .primary-gradient {
+        background: linear-gradient(135deg, #a23f00 0%, #fa7025 100%);
+      }
+      body {
+        background-color: #faf9f6;
+        color: #1a1c1a;
+      }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-white">
+<!-- TopNavBar Component -->
+<header class="w-full sticky top-0 z-50 bg-[#faf9f6]">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-black text-[#a23f00] tracking-tighter font-headline">RentRover</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-[#564337] hover:text-[#a23f00] transition-colors font-headline font-bold tracking-tight" href="Home.html">Dashboard</a>
+<a class="text-[#564337] hover:text-[#a23f00] transition-colors font-headline font-bold tracking-tight" href="Booking.html">Bookings</a>
+<a class="text-[#564337] hover:text-[#a23f00] transition-colors font-headline font-bold tracking-tight" href="Vehicle.html">Vehicles</a>
+<a class="text-[#564337] hover:text-[#a23f00] transition-colors font-headline font-bold tracking-tight" href="User.html">Users</a>
+<a class="text-[#564337] hover:text-[#a23f00] transition-colors font-headline font-bold tracking-tight" href="Reports.html">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:block relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="bg-surface-container-low border-none rounded-md py-2 pl-10 pr-4 w-64 focus:ring-1 focus:ring-primary text-sm placeholder:text-on-surface-variant/50" placeholder="Search records..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="ml-2 h-10 w-10 rounded-full bg-surface-container-high overflow-hidden border-2 border-primary-container/20">
+<img alt="Admin profile avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with a kind expression in a bright studio with neutral lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhKzUR1WTqq21yT0lB72FgEnIPohbYKj0OtHO42qigBNGpWxlAR7PwX_kFT75M-FKe9RNWh-zHSl3WAlQbcq3BpLzRpXI5Y9hBO74c1zwKZ_N14qhORm6oLrq16DwKveyOI7bEhY52M8RvjLeLkRpWB6w4yi7hebbwF4FT7BaMCer45YEaRuBlNbPFtng4aITuijyXRPnzE6qYXuvpkEms0rVHGtfsH-EV9N-kkPcaO1rPx_E7xHwetRDDdbFsUWKukgoleEN_Hhc7"/>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-screen-xl mx-auto px-8 py-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Profile Card & Quick Info -->
+<div class="lg:col-span-4 space-y-8">
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_40px_rgba(86,67,55,0.06)] flex flex-col items-center text-center">
+<div class="relative mb-6">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container-low">
+<img alt="Admin profile" class="w-full h-full object-cover" data-alt="high-quality headshot of a smiling professional male admin in business casual attire with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtVNMV7rnfTfy_dLRSn7bmq2FJZFWqQLloabcrvolt2xnkanNrvErOHdJOnRyqKwmEcSOAIadY4o2jpjxzyCmJL-slea8wimPGaFqBdwgeEMf1_FsTms2hkDZE_DdVoAzQaq4iwLkYD51W5SgVEfLqI3ZgPbbwzYPV8j87teB82QEpW_3X2k-XE86fV-vs3sbJaSoY3NVYdciCTCMVgxfgpXU8cvp1KkcCXHonCpVd45dNFjlcP8TvazGHXnyLgldNHiICGt6-zJMA"/>
+</div>
+<button class="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<h1 class="text-2xl font-headline font-extrabold text-on-surface tracking-tight">Aditya Varma</h1>
+<p class="text-on-surface-variant font-medium mt-1">Senior Operations Manager</p>
+</section>
+<section class="bg-surface-container-low rounded-xl p-8 space-y-6">
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant/60 tracking-widest uppercase mb-2 block">EMAIL ADDRESS</span>
+<div class="flex justify-between items-center bg-surface-container-lowest p-4 rounded-lg">
+<span class="text-on-surface font-medium">aditya.v@rentrover.com</span>
+<button class="text-primary hover:bg-primary/5 p-1 rounded transition-colors">
+<span class="material-symbols-outlined text-lg">edit_note</span>
+</button>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant/60 tracking-widest uppercase mb-2 block">MOBILE NUMBER</span>
+<div class="flex items-center gap-3 bg-surface-container-lowest p-4 rounded-lg">
+<span class="material-symbols-outlined text-primary-container text-sm">verified</span>
+<span class="text-on-surface font-medium tracking-wide">+91 98765 43210</span>
+</div>
+</div>
+</section>
+<button class="w-full flex items-center justify-center gap-3 p-4 rounded-xl text-error font-bold hover:bg-error/5 transition-all group">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-x-1">logout</span>
+<span>LOGOUT FROM SYSTEM</span>
+</button>
+</div>
+<!-- Right Column: Security & Settings (Asymmetric Bento) -->
+<div class="lg:col-span-8 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Update Mobile Section -->
+<section class="md:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_40px_rgba(86,67,55,0.06)]">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">smartphone</span>
+</div>
+<div>
+<h2 class="text-xl font-headline font-bold text-on-surface tracking-tight">Update Contact Number</h2>
+<p class="text-sm text-on-surface-variant">Update your primary verification mobile number</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2">
+<label class="block text-[10px] font-bold text-on-surface-variant/60 tracking-widest uppercase mb-2">NEW MOBILE NUMBER</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">+91</span>
+<input class="w-full pl-14 pr-4 py-3 bg-surface-container-low border-none rounded-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Enter 10 digit number" type="tel"/>
+</div>
+</div>
+<div class="flex items-end">
+<button class="w-full primary-gradient text-white py-3.5 px-6 rounded-md font-label font-bold text-[10px] tracking-widest uppercase shadow-md hover:scale-[1.02] active:scale-95 transition-all">
+                                    Send OTP
+                                </button>
+</div>
+</div>
+<div class="mt-10 pt-10 border-t border-outline-variant/20">
+<label class="block text-[10px] font-bold text-on-surface-variant/60 tracking-widest uppercase mb-4">OTP VERIFICATION</label>
+<div class="flex flex-col md:flex-row items-center gap-6">
+<div class="flex gap-3">
+<!-- Six-digit OTP input mockup -->
+<input class="w-12 h-14 text-center text-xl font-bold bg-surface-container-high border-none rounded-md focus:ring-2 focus:ring-primary" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-xl font-bold bg-surface-container-high border-none rounded-md focus:ring-2 focus:ring-primary" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-xl font-bold bg-surface-container-high border-none rounded-md focus:ring-2 focus:ring-primary" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-xl font-bold bg-surface-container-high border-none rounded-md focus:ring-2 focus:ring-primary" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-xl font-bold bg-surface-container-high border-none rounded-md focus:ring-2 focus:ring-primary" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-xl font-bold bg-surface-container-high border-none rounded-md focus:ring-2 focus:ring-primary" maxlength="1" type="text"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<p class="text-sm text-on-surface-variant font-medium">Haven't received the code?</p>
+<button class="text-primary text-xs font-bold uppercase tracking-wider mt-1 hover:underline">Resend in 0:45</button>
+</div>
+<button class="w-full md:w-auto px-8 py-3.5 bg-surface-container-highest text-on-surface-variant font-bold text-[10px] tracking-widest uppercase rounded-md hover:bg-surface-variant transition-colors">
+                                    Confirm Change
+                                </button>
+</div>
+</div>
+</section>
+<!-- Profile Analytics Mockup -->
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_40px_rgba(86,67,55,0.06)]">
+<h3 class="text-sm font-headline font-bold text-on-surface mb-4">Last Activity</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<div>
+<p class="text-xs font-medium">Logged in from Mumbai, India</p>
+<p class="text-[10px] text-on-surface-variant/60">Today, 10:24 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<div>
+<p class="text-xs font-medium">Updated Vehicle #RV-4022 Status</p>
+<p class="text-[10px] text-on-surface-variant/60">Yesterday, 4:15 PM</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Score -->
+<section class="bg-primary text-white rounded-xl p-8 shadow-[0_12px_40px_rgba(162,63,0,0.15)] flex flex-col justify-between">
+<div>
+<h3 class="text-sm font-headline font-bold mb-1 opacity-90">Account Security</h3>
+<p class="text-[10px] font-bold tracking-widest uppercase opacity-60">SCORE: 85%</p>
+</div>
+<div class="mt-6 flex items-end justify-between">
+<div class="h-16 w-16 relative flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle cx="32" cy="32" fill="transparent" opacity="0.2" r="28" stroke="white" stroke-width="4"></circle>
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="white" stroke-dasharray="176" stroke-dashoffset="26" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-xs font-bold">85%</span>
+</div>
+<button class="bg-white/10 hover:bg-white/20 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">shield</span>
+</button>
+</div>
+</section>
+</div>
+<!-- Footer/Bottom Branding -->
+<div class="flex justify-between items-center opacity-40 py-8">
+<span class="text-[10px] font-bold tracking-[0.2em] uppercase">2026 @RentRover Operations</span>
+</div>
+</div>
+</div>
+</main>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    // Admin profile read/update APIs are not implemented yet. Show session info instead.
+    var auth = A.auth();
+    var note = document.createElement("div");
+    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
+    note.innerHTML =
+      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant">' +
+      '<div><span class="font-bold text-on-surface">Session:</span> logged in</div>' +
+      '<div class="mt-1 text-xs break-all">Access token: ' + (auth && auth.accessToken ? auth.accessToken : "—") + "</div>" +
+      "</div>";
+    document.body.insertBefore(note, document.body.firstChild);
+  })();
+</script>
+</html>

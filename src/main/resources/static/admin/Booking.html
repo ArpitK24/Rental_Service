@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bookings | RentRover Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#77574d",
+                      "on-tertiary-fixed": "#2b1700",
+                      "on-error-container": "#93000a",
+                      "surface": "#faf9f6",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1a1c1a",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e3e2e0",
+                      "secondary-fixed-dim": "#e7bdb1",
+                      "surface-variant": "#e3e2e0",
+                      "error-container": "#ffdad6",
+                      "outline-variant": "#dcc1b1",
+                      "primary-fixed-dim": "#ffb595",
+                      "on-primary-fixed-variant": "#7c2e00",
+                      "secondary-container": "#fed3c7",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddb9",
+                      "primary": "#a23f00",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#efeeeb",
+                      "background": "#faf9f6",
+                      "on-secondary-fixed-variant": "#5d4037",
+                      "on-background": "#1a1c1a",
+                      "tertiary-container": "#d78800",
+                      "surface-tint": "#a23f00",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#ffdbcd",
+                      "outline": "#897365",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#2c160e",
+                      "on-surface-variant": "#564337",
+                      "tertiary-fixed-dim": "#ffb961",
+                      "surface-bright": "#faf9f6",
+                      "inverse-on-surface": "#f2f1ee",
+                      "on-primary-fixed": "#351000",
+                      "on-secondary-container": "#795950",
+                      "surface-container-high": "#e9e8e5",
+                      "surface-dim": "#dbdad7",
+                      "surface-container-low": "#f4f3f1",
+                      "secondary-fixed": "#ffdbd0",
+                      "on-tertiary-container": "#482b00",
+                      "on-primary-container": "#591f00",
+                      "inverse-surface": "#2f312f",
+                      "primary-container": "#fa7025",
+                      "on-tertiary-fixed-variant": "#663e00",
+                      "inverse-primary": "#ffb595",
+                      "tertiary": "#865300"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Work Sans"],
+                      "label": ["Work Sans"]
+              }
+            },
+          }
+        }
+      </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #a23f00 0%, #fa7025 100%);
+        }
+      </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky z-50 bg-[#faf9f6] dark:bg-[#1a1c1a] bg-[#f4f3f1] dark:bg-[#252724] flex justify-between items-center px-8 py-4 w-full mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-xl font-bold tracking-tighter text-[#a23f00] dark:text-[#fa7025]">RentRover</span>
+<div class="hidden md:flex items-center gap-8 font-manrope tracking-tight font-semibold">
+<a class="text-[#564337] dark:text-[#e9e8e5] opacity-70 hover:text-[#a23f00] transition-colors duration-200" href="Home.html">Dashboard</a>
+<a class="text-[#a23f00] dark:text-[#fa7025] border-b-2 border-[#a23f00] pb-1" href="Booking.html">Bookings</a>
+<a class="text-[#564337] dark:text-[#e9e8e5] opacity-70 hover:text-[#a23f00] transition-colors duration-200" href="Vehicle.html">Vehicles</a>
+<a class="text-[#564337] dark:text-[#e9e8e5] opacity-70 hover:text-[#a23f00] transition-colors duration-200" href="User.html">Users</a>
+<a class="text-[#564337] dark:text-[#e9e8e5] opacity-70 hover:text-[#a23f00] transition-colors duration-200" href="Reports.html">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden cursor-pointer border border-outline-variant/20">
+<img alt="Admin Profile Avatar" class="w-full h-full object-cover" data-alt="professional headshot of a middle-aged male administrator with a confident smile in a bright modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuSAQEMRBDUeTz-a6xf1TkZfoo3MD8xIuWk5RopQ7uZm4M8NkmXk_3fLffuKVXEEQd8a2clswmrXdvoKSKzZMYfFiDuBwXnrAo_dq9mkFY_h6X6Y7vptLYCiDOBX1LYFcDN6kTd2NSNUNplh6U_cM1rx1NcVZYMbRA7hFXaZ0m6-SMrP6yc5e0L0mOMCDI2FA5sntP8rsF-WqZ6bMmVJZuX0-LkaiAs_Hxrd_la_mgVVM_OMrrWqxB8NtCEGXpdQak-HvmExnaU1l0"/>
+</div>
+</div>
+</nav>
+<main class="max-w-[1440px] mx-auto px-8 py-10">
+<!-- Page Header & Title -->
+<header class="mb-12">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Bookings</h1>
+<p class="text-on-surface-variant font-light">Manage and oversee all vehicle rental transactions in one place.</p>
+</header>
+<!-- Search & Filter Bar Section -->
+<section class="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="w-full md:w-1/2 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low rounded-xl border-none focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-on-surface-variant/50 transition-all" placeholder="Search Booking" type="text"/>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-48">
+<select class="w-full appearance-none bg-none px-4 py-3 bg-surface-container-low rounded-xl border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-medium cursor-pointer">
+<option disabled="" selected="" value="">Filter Status</option>
+<option>Ongoing</option>
+<option>Confirmed</option>
+<option>Cancel</option>
+<option>Completed</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<button class="p-3 bg-surface-container-low rounded-xl text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</section>
+<!-- Bookings Table Area -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50">
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Booking ID</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Customer Name</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Vehicle</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Rental Dates</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-6 font-medium text-primary">#BR-8821</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-xs font-bold text-on-secondary-fixed">JD</div>
+<span class="text-on-surface font-semibold">Jonathan Doe</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Model S Plaid</span>
+<span class="text-xs text-on-surface-variant">Tesla</span>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-on-surface-variant">Oct 12 - Oct 15, 2023</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-tertiary-container/20 text-on-tertiary-container flex items-center w-fit gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                    Ongoing
+                                </span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-6 font-medium text-primary">#BR-8819</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-xs font-bold text-on-primary-fixed">SW</div>
+<span class="text-on-surface font-semibold">Sarah Williams</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">911 Carrera</span>
+<span class="text-xs text-on-surface-variant">Porsche</span>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-on-surface-variant">Oct 14 - Oct 20, 2023</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 flex items-center w-fit gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                    Confirmed
+                                </span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-6 font-medium text-primary">#BR-8790</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-secondary-container">MK</div>
+<span class="text-on-surface font-semibold">Marcus Kane</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Defender 110</span>
+<span class="text-xs text-on-surface-variant">Land Rover</span>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-on-surface-variant">Oct 05 - Oct 08, 2023</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-error-container/40 text-on-error-container flex items-center w-fit gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                    Cancel
+                                </span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-6 font-medium text-primary">#BR-8752</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface-variant">EL</div>
+<span class="text-on-surface font-semibold">Elena Lopez</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">S-Class 450</span>
+<span class="text-xs text-on-surface-variant">Mercedes-Benz</span>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-on-surface-variant">Sep 28 - Oct 02, 2023</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 flex items-center w-fit gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                                    Completed
+                                </span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-6 font-medium text-primary">#BR-8740</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-xs font-bold text-on-primary-fixed-variant">RB</div>
+<span class="text-on-surface font-semibold">Robert Brown</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">F-Type R</span>
+<span class="text-xs text-on-surface-variant">Jaguar</span>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-on-surface-variant">Sep 25 - Sep 30, 2023</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 flex items-center w-fit gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                                    Completed
+                                </span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-on-surface-variant hover:text-primary">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination/Footer -->
+<footer class="p-6 bg-surface-container-low border-t border-outline-variant/10 flex items-center justify-between">
+<span class="text-sm text-on-surface-variant">Showing 5 of 124 bookings</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high text-on-surface font-medium text-xs">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high text-on-surface font-medium text-xs">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</footer>
+</div>
+</main>
+<!-- Asymmetric Background Elements -->
+<div class="fixed top-0 right-0 -z-10 opacity-10 pointer-events-none">
+<svg fill="none" height="600" viewbox="0 0 600 600" width="600" xmlns="http://www.w3.org/2000/svg">
+<circle cx="450" cy="150" fill="url(#paint0_linear)" r="150"></circle>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear" x1="300" x2="600" y1="0" y2="300">
+<stop stop-color="#fa7025"></stop>
+<stop offset="1" stop-color="#ffffff"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</body>
+<script src="app.js"></script>
+<script>
+  (function () {
+    "use strict";
+    var A = window.RentRoverAdmin;
+    if (!A) return;
+    if (!A.requireAuthOrRedirect()) return;
+
+    // Admin-wide booking list APIs are not available yet in backend.
+    // Keep the page usable for demo by clearly indicating this.
+    var note = document.createElement("div");
+    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
+    note.innerHTML =
+      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant">' +
+      '<span class="font-bold text-on-surface">Note:</span> Admin booking management APIs are not available yet. ' +
+      'This screen is UI-only for now.' +
+      "</div>";
+    document.body.insertBefore(note, document.body.firstChild);
+  })();
+</script>
+</html>
