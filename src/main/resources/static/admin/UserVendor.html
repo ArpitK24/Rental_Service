@@ -349,44 +349,7 @@
       }
     }
 
-    var userId = getParam("userId");
-    var note = document.createElement("div");
-    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
-    note.innerHTML =
-      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant" id="vendorLivePanel">' +
-      '<span class="font-bold text-on-surface">Live Data:</span> loading...' +
-      "</div>";
-    document.body.insertBefore(note, document.body.firstChild);
-
-    (async function () {
-      var el = document.getElementById("vendorLivePanel");
-      if (!el) return;
-      if (!userId) {
-        el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> missing `userId` in URL.';
-        return;
-      }
-      try {
-        var users = await A.apiFetch("/users/getAllUsers", { method: "GET" });
-        var found = null;
-        for (var i = 0; i < (users || []).length; i++) {
-          if (users[i] && users[i].id === userId) { found = users[i]; break; }
-        }
-        if (!found) {
-          el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> user not found.';
-          return;
-        }
-        el.innerHTML =
-          '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">' +
-          '<div><span class="font-bold text-on-surface">Name:</span> ' + escapeHtml(found.name || "-") + "</div>" +
-          '<div><span class="font-bold text-on-surface">Mobile:</span> ' + escapeHtml(found.mobile || "-") + "</div>" +
-          '<div><span class="font-bold text-on-surface">Email:</span> ' + escapeHtml(found.email || "-") + "</div>" +
-          '<div><span class="font-bold text-on-surface">City:</span> ' + escapeHtml(found.city || "-") + "</div>" +
-          '<div><span class="font-bold text-on-surface">Role:</span> ' + escapeHtml(found.role || "-") + "</div>" +
-          "</div>";
-      } catch (err) {
-        el.innerHTML = '<span class="font-bold text-on-surface">Live Data:</span> failed to load: ' + escapeHtml(err.message || "Error");
-      }
-    })();
+    // Removed injected top "Live Data" panel to avoid duplicate/inconsistent user info.
   })();
 </script>
 </html>

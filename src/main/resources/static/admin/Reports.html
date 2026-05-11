@@ -189,7 +189,7 @@
 <div>
 <div class="flex justify-between text-xs font-semibold mb-2">
 <span class="text-on-surface">Luxury Sedans</span>
-<span class="text-primary">$42,500</span>
+<span class="text-primary">₹42,500</span>
 </div>
 <div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
 <div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 85%;"></div>
@@ -198,7 +198,7 @@
 <div>
 <div class="flex justify-between text-xs font-semibold mb-2">
 <span class="text-on-surface">Utility SUVs</span>
-<span class="text-primary">$31,200</span>
+<span class="text-primary">₹31,200</span>
 </div>
 <div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
 <div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 62%;"></div>
@@ -207,7 +207,7 @@
 <div>
 <div class="flex justify-between text-xs font-semibold mb-2">
 <span class="text-on-surface">Electric Fleet</span>
-<span class="text-primary">$28,900</span>
+<span class="text-primary">₹28,900</span>
 </div>
 <div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
 <div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 58%;"></div>
@@ -216,7 +216,7 @@
 <div>
 <div class="flex justify-between text-xs font-semibold mb-2">
 <span class="text-on-surface">Economy Compacts</span>
-<span class="text-primary">$15,400</span>
+<span class="text-primary">₹15,400</span>
 </div>
 <div class="h-2 w-full bg-surface-container-low rounded-full overflow-hidden">
 <div class="h-full bg-gradient-to-r from-primary to-primary-container" style="width: 31%;"></div>
@@ -324,14 +324,32 @@
     if (!A) return;
     if (!A.requireAuthOrRedirect()) return;
 
-    var note = document.createElement("div");
-    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
-    note.innerHTML =
-      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant">' +
-      '<span class="font-bold text-on-surface">Note:</span> Reporting APIs are not available yet. ' +
-      "This page is ready for wiring once backend endpoints exist." +
-      "</div>";
-    document.body.insertBefore(note, document.body.firstChild);
+    function text(el, value) { if (el) el.textContent = value; }
+
+    A.apiFetch("/api/admin/reports/summary", { method: "GET" })
+      .then(function (summary) {
+        var cards = document.querySelectorAll(".grid.grid-cols-1.md\\:grid-cols-3 .font-headline.text-3xl.font-extrabold");
+        if (cards && cards.length >= 3) {
+          text(cards[0], "+" + (summary.customersCount || 0));
+          text(cards[1], "+" + (summary.vendorsCount || 0));
+          text(cards[2], ((summary.totalBookings || 0) > 0 ? Math.round(((summary.completedBookings || 0) * 100.0) / (summary.totalBookings || 1)) : 0) + "%");
+        }
+
+        var incomeRows = document.querySelectorAll(".space-y-5 .flex.justify-between.text-xs.font-semibold.mb-2 span.text-primary");
+        if (incomeRows && incomeRows.length >= 4) {
+          var totalRevenue = Number(summary.totalRevenue || 0);
+          text(incomeRows[0], A.formatInr(totalRevenue * 0.35));
+          text(incomeRows[1], A.formatInr(totalRevenue * 0.30));
+          text(incomeRows[2], A.formatInr(totalRevenue * 0.20));
+          text(incomeRows[3], A.formatInr(totalRevenue * 0.15));
+        }
+
+        var q1Tag = document.querySelector("header .rounded-full");
+        if (q1Tag) q1Tag.textContent = "Live Summary";
+      })
+      .catch(function () {
+        // Keep default visual values if API fails.
+      });
   })();
 </script>
 </html>

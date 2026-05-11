@@ -158,6 +158,20 @@ public class AdminAuthService {
     }
 
     @Transactional
+    public void logoutByMobile(String mobile) {
+        AdminUser admin = admins.findByMobile(mobile)
+                .orElseThrow(new java.util.function.Supplier<RuntimeException>() {
+                    @Override
+                    public RuntimeException get() {
+                        return new RuntimeException("Admin not found");
+                    }
+                });
+        admin.setLoggedOut(true);
+        admins.save(admin);
+        refreshTokens.deleteByAdmin(admin);
+    }
+
+    @Transactional
     public void logout(UUID adminId) {
         AdminUser admin = admins.findById(adminId)
                 .orElseThrow(new java.util.function.Supplier<RuntimeException>() {

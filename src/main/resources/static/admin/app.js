@@ -2,8 +2,18 @@
 (function () {
   "use strict";
 
-  // Resolve API base from current deployment context (e.g., /RentalCarApp).
-  var BASE_URL = window.location.origin + "/" + window.location.pathname.split("/")[1];
+  // Resolve API base for both:
+  // - root deployment: http://host:port/admin/Login.html
+  // - context deployment: http://host:port/RentalCarApp/admin/Login.html
+  function detectBaseUrl() {
+    if (window.__API_BASE_URL__) return String(window.__API_BASE_URL__).replace(/\/+$/, "");
+    var pathParts = window.location.pathname.split("/").filter(function (p) { return !!p; });
+    if (pathParts.length > 0 && pathParts[0].toLowerCase() !== "admin" && pathParts[0].indexOf(".") === -1) {
+      return window.location.origin + "/" + pathParts[0];
+    }
+    return window.location.origin;
+  }
+  var BASE_URL = detectBaseUrl();
 
   function nowIso() {
     try { return new Date().toISOString(); } catch (e) { return ""; }
@@ -50,6 +60,19 @@
 
   function clearAuth() {
     try { localStorage.removeItem("admin_auth"); } catch (e) {}
+  }
+
+  function formatInr(amount) {
+    var n = Number(amount || 0);
+    try {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0
+      }).format(n);
+    } catch (e) {
+      return "₹" + n.toFixed(0);
+    }
   }
 
   function getAccessToken() {
@@ -114,6 +137,16 @@
     return tokenPair;
   }
 
+  async function logoutAdmin() {
+    try {
+      await apiFetch("/admin/auth/logout", { method: "POST" });
+    } catch (e) {
+      // Clear session even if backend logout request fails.
+    }
+    clearAuth();
+    window.location.href = "Login.html";
+  }
+
   function requireAuthOrRedirect() {
     if (!getAccessToken()) {
       // Preserve current page so we can return after login.
@@ -130,6 +163,20 @@
     window.location.href = next || "Home.html";
   }
 
+  function bindProfileNavigation() {
+    var imgs = document.querySelectorAll("img[alt*='Admin'], img[alt*='Administrator']");
+    for (var i = 0; i < imgs.length; i++) {
+      (function (img) {
+        img.style.cursor = "pointer";
+        img.addEventListener("click", function () {
+          window.location.href = "Profile.html";
+        });
+      })(imgs[i]);
+    }
+  }
+
+  bindProfileNavigation();
+
   window.RentRoverAdmin = {
     BASE_URL: BASE_URL,
     apiFetch: apiFetch,
@@ -139,9 +186,12 @@
     auth: auth,
     setAuth: setAuth,
     clearAuth: clearAuth,
+    formatInr: formatInr,
     requireAuthOrRedirect: requireAuthOrRedirect,
     afterLoginRedirectDefault: afterLoginRedirectDefault,
+    bindProfileNavigation: bindProfileNavigation,
     loginFlowRequestOtp: loginFlowRequestOtp,
-    loginFlowVerifyOtp: loginFlowVerifyOtp
+    loginFlowVerifyOtp: loginFlowVerifyOtp,
+    logoutAdmin: logoutAdmin
   };
 })();

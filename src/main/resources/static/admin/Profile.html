@@ -268,16 +268,37 @@
     if (!A) return;
     if (!A.requireAuthOrRedirect()) return;
 
-    // Admin profile read/update APIs are not implemented yet. Show session info instead.
-    var auth = A.auth();
-    var note = document.createElement("div");
-    note.className = "mx-auto max-w-screen-2xl px-6 md:px-10 pt-4";
-    note.innerHTML =
-      '<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-sm text-on-surface-variant">' +
-      '<div><span class="font-bold text-on-surface">Session:</span> logged in</div>' +
-      '<div class="mt-1 text-xs break-all">Access token: ' + (auth && auth.accessToken ? auth.accessToken : "—") + "</div>" +
-      "</div>";
-    document.body.insertBefore(note, document.body.firstChild);
+    var title = document.querySelector("section h1");
+    var role = document.querySelector("section p");
+    var infoCards = document.querySelectorAll(".bg-surface-container-lowest.p-4.rounded-lg");
+    var emailValue = null;
+    var mobileValue = null;
+    if (infoCards.length > 0) {
+      emailValue = infoCards[0].querySelector("span.text-on-surface.font-medium");
+    }
+    if (infoCards.length > 1) {
+      mobileValue = infoCards[1].querySelector("span.text-on-surface.font-medium.tracking-wide");
+    }
+    var logoutBtn = Array.prototype.find.call(document.querySelectorAll("button"), function (b) {
+      return (b.textContent || "").indexOf("LOGOUT FROM SYSTEM") >= 0;
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", function () {
+        A.logoutAdmin();
+      });
+    }
+
+    A.apiFetch("/api/admin/profile", { method: "GET" })
+      .then(function (profile) {
+        if (title) title.textContent = profile.name || "Admin";
+        if (role) role.textContent = profile.role ? (profile.role + " User") : "Administrator";
+        if (emailValue) emailValue.textContent = profile.email || "Not Available";
+        if (mobileValue) mobileValue.textContent = profile.mobile ? ("+91 " + profile.mobile) : "Not Available";
+      })
+      .catch(function () {
+        // Keep template values if API call fails.
+      });
   })();
 </script>
 </html>

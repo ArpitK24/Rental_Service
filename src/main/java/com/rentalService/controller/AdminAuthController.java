@@ -5,6 +5,7 @@ import com.rentalService.dto.TokenPair;
 import com.rentalService.model.AdminUser;
 import com.rentalService.service.AdminAuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -47,5 +48,19 @@ public class AdminAuthController {
         String refreshToken = request.get("refreshToken");
         TokenPair tokens = adminAuthService.refresh(refreshToken);
         return ResponseEntity.ok(tokens);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, String>> logout(Authentication authentication) {
+        if (authentication == null || authentication.getName() == null) {
+            Map<String, String> body = new HashMap<String, String>();
+            body.put("message", "Unauthorized");
+            return ResponseEntity.status(401).body(body);
+        }
+        String mobile = authentication.getName();
+        adminAuthService.logoutByMobile(mobile);
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("message", "Logged out successfully");
+        return ResponseEntity.ok(body);
     }
 }
