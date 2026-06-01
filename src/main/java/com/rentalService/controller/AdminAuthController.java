@@ -27,11 +27,12 @@ public class AdminAuthController {
     }
 
     @PostMapping("/request-otp")
-    public ResponseEntity<Map<String, String>> requestOtp(@RequestBody Map<String, String> request) {
+    public ResponseEntity<Map<String, Object>> requestOtp(@RequestBody Map<String, String> request) {
         String mobile = request.get("mobile");
-        adminAuthService.requestOtp(mobile);
-        Map<String, String> body = new HashMap<String, String>();
+        String otp = adminAuthService.requestOtp(mobile);
+        Map<String, Object> body = new HashMap<String, Object>();
         body.put("message", "OTP sent successfully");
+        body.put("devOtp", otp);
         return ResponseEntity.ok(body);
     }
 

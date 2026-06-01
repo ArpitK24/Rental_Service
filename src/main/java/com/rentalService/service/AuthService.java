@@ -36,6 +36,7 @@ public class AuthService {
     private final int inactivityDays;
     private final int otpMaxRequests;
     private final int otpWindowMinutes;
+    private final boolean returnOtpInResponse;
     private static final SecureRandom RAND = new SecureRandom();
 
     public AuthService(
@@ -46,7 +47,8 @@ public class AuthService {
             @Value("${jwt.refresh-token.expiration}") long refreshTtlMs,
             @Value("${security.inactivity-days:30}") int inactivityDays,
             @Value("${otp.rate.limit.max:3}") int otpMaxRequests,
-            @Value("${otp.rate.limit.window-minutes:10}") int otpWindowMinutes
+            @Value("${otp.rate.limit.window-minutes:10}") int otpWindowMinutes,
+            @Value("${otp.debug.return-in-response:false}") boolean returnOtpInResponse
     ) {
         this.users = users;
         this.otps = otps;
@@ -56,9 +58,10 @@ public class AuthService {
         this.inactivityDays = inactivityDays;
         this.otpMaxRequests = otpMaxRequests;
         this.otpWindowMinutes = otpWindowMinutes;
+        this.returnOtpInResponse = returnOtpInResponse;
     }
 
-    public void requestOtp(String mobile) {
+    public String requestOtp(String mobile) {
         Optional<User> maybeUser = users.findByMobile(mobile);
         if (!maybeUser.isPresent()) {
             throw new IllegalArgumentException("Mobile number not registered");
@@ -82,6 +85,7 @@ public class AuthService {
 
         otps.save(otp);
         // TODO: integrate SMS gateway
+        return returnOtpInResponse ? code : null;
     }
 
     

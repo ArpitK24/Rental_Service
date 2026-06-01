@@ -30,6 +30,7 @@ public class AdminAuthService {
 
     private final long refreshTtlMs;
     private final int inactivityDays;
+    private final boolean returnOtpInResponse;
     private static final SecureRandom RAND = new SecureRandom();
 
     public AdminAuthService(AdminUserRepository admins,
@@ -37,13 +38,15 @@ public class AdminAuthService {
                             AdminRefreshTokenRepository refreshTokens,
                             JwtService jwt,
                             @Value("${jwt.refresh-token.expiration}") long refreshTtlMs,
-                            @Value("${security.inactivity-days:30}") int inactivityDays) {
+                            @Value("${security.inactivity-days:30}") int inactivityDays,
+                            @Value("${otp.debug.return-in-response:false}") boolean returnOtpInResponse) {
         this.admins = admins;
         this.otps = otps;
         this.refreshTokens = refreshTokens;
         this.jwt = jwt;
         this.refreshTtlMs = refreshTtlMs;
         this.inactivityDays = inactivityDays;
+        this.returnOtpInResponse = returnOtpInResponse;
     }
 
     public AdminUser register(AdminRegisterDto dto) {
@@ -61,7 +64,7 @@ public class AdminAuthService {
         return admins.save(admin);
     }
 
-    public void requestOtp(String mobile) {
+    public String requestOtp(String mobile) {
         AdminUser admin = admins.findByMobile(mobile)
                 .orElseThrow(new java.util.function.Supplier<IllegalArgumentException>() {
                     @Override
@@ -80,6 +83,7 @@ public class AdminAuthService {
         otp.setUsed(false);
         otps.save(otp);
         // TODO: integrate SMS gateway
+        return returnOtpInResponse ? code : null;
     }
 
     @Transactional

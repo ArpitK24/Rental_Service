@@ -24,12 +24,13 @@ public class AuthController {
 
     // 1. Request OTP
     @PostMapping("/request-otp")
-    public ResponseEntity<Map<String, String>> requestOtp(@RequestBody Map<String, String> request) {
+    public ResponseEntity<Map<String, Object>> requestOtp(@RequestBody Map<String, String> request) {
         String mobile = request.get("mobile");
-        authService.requestOtp(mobile);
+        String otp = authService.requestOtp(mobile);
 
-        Map<String, String> body = new java.util.HashMap<>();
+        Map<String, Object> body = new java.util.HashMap<String, Object>();
         body.put("message", "OTP sent successfully");
+        body.put("devOtp", otp);
         return ResponseEntity.ok(body);
     }
 
