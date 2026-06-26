@@ -1,5 +1,6 @@
 package com.rentalService.service;
 
+import com.rentalService.dto.NearbyVehicleDto;
 import com.rentalService.model.User;
 import com.rentalService.model.Vehicle;
 import com.rentalService.repository.UserRepository;
@@ -17,6 +18,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,8 +61,11 @@ public class VehicleService {
             double pricePerDay,
             MultipartFile frontImage,
             MultipartFile backImage,
-            MultipartFile[] otherImages
+            MultipartFile[] otherImages,
+            Double latitude,
+            Double longitude
     ) throws IOException {
+        validateCoordinates(latitude, longitude);
 
         // ✅ Find vendor using JWT mobile
         User vendor = userRepository.findByMobile(mobile)
@@ -97,6 +103,8 @@ public class VehicleService {
         vehicle.setDealerName(dealerName);
         vehicle.setDrivingLicenseImageUrl(drivingLicenseUrl);
         vehicle.setAddressLine(addressLine);
+        vehicle.setLatitude(latitude);
+        vehicle.setLongitude(longitude);
         vehicle.setAlternateMobile(alternateMobile);
         vehicle.setPostalCode(postalCode);
         vehicle.setVehicleType(vehicleType);
@@ -214,6 +222,8 @@ public class VehicleService {
     }
 
     public Vehicle updateVehicleDetails(UUID vehicleId, String mobile, com.rentalService.dto.UpdateVehicleDto dto) {
+        validateCoordinates(dto.getLatitude(), dto.getLongitude());
+
         User vendor = userRepository.findByMobile(mobile)
                 .orElseThrow(() -> new IllegalArgumentException("Vendor not found"));
 
@@ -234,8 +244,89 @@ public class VehicleService {
         if (dto.getPricePerDay() != null) vehicle.setPricePerDay(dto.getPricePerDay());
         if (dto.getKilometers() != null) vehicle.setKilometers(dto.getKilometers());
         if (dto.getSeats() != null) vehicle.setSeats(dto.getSeats());
+        if (dto.getLatitude() != null) vehicle.setLatitude(dto.getLatitude());
+        if (dto.getLongitude() != null) vehicle.setLongitude(dto.getLongitude());
 
         vehicle.setUpdatedAt(OffsetDateTime.now());
         return vehicleRepository.save(vehicle);
+    }
+
+    public List<NearbyVehicleDto> getNearbyVehicles(String mobile, int radiusKm) {
+        if (radiusKm != 10 && radiusKm != 20 && radiusKm != 30 && radiusKm != 50) {
+            throw new IllegalArgumentException("radiusKm must be one of 10, 20, 30, 50");
+        }
+
+        User user = userRepository.findByMobile(mobile)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (user.getCurrentLatitude() == null || user.getCurrentLongitude() == null) {
+            throw new IllegalArgumentException("Please set your location first");
+        }
+
+        List<Vehicle> activeVehicles = vehicleRepository.findByStatus("ACTIVE");
+        if (activeVehicles.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<NearbyVehicleDto> nearby = new ArrayList<NearbyVehicleDto>();
+        for (Vehicle vehicle : activeVehicles) {
+            if (vehicle.getLatitude() == null || vehicle.getLongitude() == null) {
+                continue;
+            }
+            double distanceKm = haversineKm(
+                    user.getCurrentLatitude(),
+                    user.getCurrentLongitude(),
+                    vehicle.getLatitude(),
+                    vehicle.getLongitude()
+            );
+            if (distanceKm <= radiusKm) {
+                NearbyVehicleDto dto = new NearbyVehicleDto();
+                dto.setId(vehicle.getId());
+                dto.setVehicleName(vehicle.getVehicleName());
+                dto.setVehicleBrand(vehicle.getVehicleBrand());
+                dto.setVehicleType(vehicle.getVehicleType());
+                dto.setAddressLine(vehicle.getAddressLine());
+                dto.setLatitude(vehicle.getLatitude());
+                dto.setLongitude(vehicle.getLongitude());
+                dto.setPricePerDay(vehicle.getPricePerDay());
+                dto.setFrontImageUrl(vehicle.getFrontImageUrl());
+                dto.setStatus(vehicle.getStatus());
+                dto.setDistanceKm(roundDistance(distanceKm));
+                nearby.add(dto);
+            }
+        }
+
+        nearby.sort(Comparator.comparing(NearbyVehicleDto::getDistanceKm));
+        return nearby;
+    }
+
+    private double haversineKm(double userLat, double userLng, double vehicleLat, double vehicleLng) {
+        double earthRadiusKm = 6371.0d;
+        double latDiff = Math.toRadians(vehicleLat - userLat);
+        double lngDiff = Math.toRadians(vehicleLng - userLng);
+        double a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2)
+                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(vehicleLat))
+                * Math.sin(lngDiff / 2) * Math.sin(lngDiff / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadiusKm * c;
+    }
+
+    private double roundDistance(double distanceKm) {
+        return Math.round(distanceKm * 100.0d) / 100.0d;
+    }
+
+    private void validateCoordinates(Double latitude, Double longitude) {
+        if (latitude == null && longitude == null) {
+            return;
+        }
+        if (latitude == null || longitude == null) {
+            throw new IllegalArgumentException("Both latitude and longitude must be provided together");
+        }
+        if (latitude < -90.0d || latitude > 90.0d) {
+            throw new IllegalArgumentException("latitude must be between -90 and 90");
+        }
+        if (longitude < -180.0d || longitude > 180.0d) {
+            throw new IllegalArgumentException("longitude must be between -180 and 180");
+        }
     }
 }

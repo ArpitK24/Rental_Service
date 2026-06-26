@@ -15,6 +15,8 @@ public class UserResponseDto {
     private String email;
     private String address;
     private String city;
+    private Double currentLatitude;
+    private Double currentLongitude;
     private LocalDate dob;
     private Set<Interest> interests;
     private OffsetDateTime createdAt;
@@ -26,6 +28,7 @@ public class UserResponseDto {
 
     public UserResponseDto(UUID id, String mobile, String role, String name,
                            String email, String address, String city,
+                           Double currentLatitude, Double currentLongitude,
                            LocalDate dob, Set<Interest> interests,
                            OffsetDateTime createdAt, OffsetDateTime updatedAt,
                            OffsetDateTime lastActiveAt) {
@@ -36,6 +39,8 @@ public class UserResponseDto {
         this.email = email;
         this.address = address;
         this.city = city;
+        this.currentLatitude = currentLatitude;
+        this.currentLongitude = currentLongitude;
         this.dob = dob;
         this.interests = interests;
         this.createdAt = createdAt;
@@ -63,6 +68,12 @@ public class UserResponseDto {
 
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
+
+    public Double getCurrentLatitude() { return currentLatitude; }
+    public void setCurrentLatitude(Double currentLatitude) { this.currentLatitude = currentLatitude; }
+
+    public Double getCurrentLongitude() { return currentLongitude; }
+    public void setCurrentLongitude(Double currentLongitude) { this.currentLongitude = currentLongitude; }
 
     public LocalDate getDob() { return dob; }
     public void setDob(LocalDate dob) { this.dob = dob; }

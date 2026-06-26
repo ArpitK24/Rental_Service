@@ -258,6 +258,8 @@ public class AuthService {
                 user.getEmail(),
                 user.getAddress(),
                 user.getCity(),
+                user.getCurrentLatitude(),
+                user.getCurrentLongitude(),
                 user.getDob(),
                 user.getInterests(),
                 user.getCreatedAt(),

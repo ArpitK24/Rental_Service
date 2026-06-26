@@ -11,6 +11,8 @@ public class UpdateVehicleDto {
     private Double pricePerDay;
     private Double kilometers;
     private Integer seats;
+    private Double latitude;
+    private Double longitude;
 
     // Getters and Setters
 
@@ -84,5 +86,21 @@ public class UpdateVehicleDto {
 
     public void setSeats(Integer seats) {
         this.seats = seats;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

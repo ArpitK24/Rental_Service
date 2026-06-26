@@ -46,6 +46,9 @@ public class Vehicle {
     @Column(length = 500)
     private String addressLine;
 
+    private Double latitude;
+    private Double longitude;
+
     @Column(length = 20)
     private String alternateMobile;
 
@@ -143,6 +146,12 @@ public class Vehicle {
 
     public String getAddressLine() { return addressLine; }
     public void setAddressLine(String addressLine) { this.addressLine = addressLine; }
+
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 
     public String getAlternateMobile() { return alternateMobile; }
     public void setAlternateMobile(String alternateMobile) { this.alternateMobile = alternateMobile; }

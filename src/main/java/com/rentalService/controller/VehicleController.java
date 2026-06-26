@@ -48,6 +48,8 @@ public class VehicleController {
             @RequestParam String transmission,
             @RequestParam String driveType,
             @RequestParam double pricePerDay,
+            @RequestParam(required = false) Double latitude,
+            @RequestParam(required = false) Double longitude,
             @RequestParam("frontImage") MultipartFile frontImage,
             @RequestParam("backImage") MultipartFile backImage,
             @RequestParam(value = "otherImages", required = false) MultipartFile[] otherImages,
@@ -75,7 +77,9 @@ public class VehicleController {
                 pricePerDay,
                 frontImage,
                 backImage,
-                otherImages
+                otherImages,
+                latitude,
+                longitude
         );
 
         return ResponseEntity.ok(vehicle);
@@ -96,6 +100,14 @@ public class VehicleController {
     @GetMapping
     public ResponseEntity<List<Vehicle>> getActiveVehicles() {
         return ResponseEntity.ok(vehicleService.getActiveVehicles());
+    }
+
+    @GetMapping("/nearby")
+    public ResponseEntity<List<com.rentalService.dto.NearbyVehicleDto>> getNearbyVehicles(
+            @RequestParam(defaultValue = "30") int radiusKm,
+            Authentication authentication
+    ) {
+        return ResponseEntity.ok(vehicleService.getNearbyVehicles(authentication.getName(), radiusKm));
     }
 
     /**

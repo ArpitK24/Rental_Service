@@ -38,6 +38,8 @@ public class User implements UserDetails {
     private String email;
     private String address;
     private String city;
+    private Double currentLatitude;
+    private Double currentLongitude;
     private LocalDate dob;
 
     // Updated: store enum values
@@ -74,6 +76,12 @@ public class User implements UserDetails {
 
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
+
+    public Double getCurrentLatitude() { return currentLatitude; }
+    public void setCurrentLatitude(Double currentLatitude) { this.currentLatitude = currentLatitude; }
+
+    public Double getCurrentLongitude() { return currentLongitude; }
+    public void setCurrentLongitude(Double currentLongitude) { this.currentLongitude = currentLongitude; }
 
     public LocalDate getDob() { return dob; }
     public void setDob(LocalDate dob) { this.dob = dob; }
